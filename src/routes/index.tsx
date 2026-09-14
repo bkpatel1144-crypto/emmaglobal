@@ -41,11 +41,14 @@ function HomePage() {
             <Sparkles aria-hidden="true" />
             Global Integrated Solutions
           </div>
+          {/* The breaks are tuned for the desktop measure and are hidden below
+              760px. Each is preceded by an explicit space so the words stay
+              separate when it is — without it "Workforce,Sustainability" becomes
+              one unbreakable token and forces the page wider than the screen. */}
           <h1>
-            Empowering <span className="accent">Workforce,</span>
-            <br />
-            Sustainability &amp; <span className="accent2">Digital</span>
-            <br />
+            Empowering <span className="accent">Workforce,</span> <br className="hero-break" />
+            Sustainability &amp; <span className="accent2">Digital</span>{" "}
+            <br className="hero-break" />
             Transformation
           </h1>
           <p className="hero-sub">

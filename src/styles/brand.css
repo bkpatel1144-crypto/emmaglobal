@@ -35,7 +35,8 @@
   --serif: "Sora", sans-serif;
   --sans: "Inter", sans-serif;
   --nav-h: 68px;
-  --gutter: 5%;
+  /* 5% of a 390px phone is only ~20px, so the gutter has a hard floor. */
+  --gutter: clamp(20px, 5%, 96px);
 }
 
 html {

@@ -984,8 +984,7 @@
   text-align: center;
   padding: calc(var(--nav-h) + 80px) var(--gutter) 80px;
   background:
-    linear-gradient(var(--ink) 0, var(--ink) var(--nav-h), transparent var(--nav-h)),
-    var(--off);
+    linear-gradient(var(--ink) 0, var(--ink) var(--nav-h), transparent var(--nav-h)), var(--off);
 }
 .notfound .code {
   font-family: var(--serif);

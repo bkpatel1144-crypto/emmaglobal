@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "sitemap": "node scripts/generate-sitemap.mjs"
+    "sitemap": "node scripts/generate-sitemap.mjs",
+    "build:regions-css": "node scripts/build-regions-css.mjs"
   },
   "overrides": {
     "rolldown": "1.2.1"

@@ -86,6 +86,7 @@ public/
   sitemap.xml               Generated at build time
 scripts/
   generate-sitemap.mjs      Runs as part of `build`
+  build-regions-css.mjs     Regenerates src/styles/regions.css
 src/
   components/               Shell, forms, service cards, icons
   content/
@@ -115,10 +116,18 @@ are all defined there and consumed by every page that needs them.
 `src/content/regions-body.html`, and the original interaction script is ported to a
 React effect in `src/routes/regions.tsx`.
 
-`src/styles/regions.css` is **generated** — every selector from the design's
-stylesheet is scoped to `.regions-root` so its palette and element styles stay off
-the rest of the site. Edit `design-reference/regions-source.html` and re-run the
-scoping step rather than editing `regions.css` directly.
+`src/styles/regions.css` is **generated — do not edit it by hand**. Run:
+
+```bash
+npm run build:regions-css
+```
+
+`scripts/build-regions-css.mjs` reads `design-reference/regions-source.html`,
+scopes every selector to `.regions-root`, and applies two fixes to the source
+design: the industry cards lift with shadow instead of `translateY` (a hover
+transform on the hover target makes `:hover` strobe at the edges), and the hub
+pulse ring is excluded from hit-testing so its expanding radius cannot retrigger
+hover. Change the reference HTML or that script, never the CSS.
 
 ### Brand tokens
 
@@ -157,4 +166,5 @@ Hover never translates the element that owns the `:hover` — moving a card out
 from under the pointer makes `:hover` flip on and off, which reads as
 flickering. Cards lift with shadow and border; only descendants (icons, arrows)
 transform.
+
 # emmaglobal

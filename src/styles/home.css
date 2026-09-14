@@ -88,6 +88,8 @@
   color: #fff;
   margin-bottom: 1.3rem;
   text-wrap: balance;
+  /* Safety net: a long unbreakable token must never widen the page. */
+  overflow-wrap: break-word;
 }
 .hero h1 .accent {
   color: var(--sky-light);
@@ -759,6 +761,52 @@
     grid-template-columns: 1fr;
   }
 }
+/* ── HERO ON SMALL SCREENS ──
+   The desktop hero is built around a 680px measure with hand-placed line
+   breaks. On a phone that measure no longer exists, so the headline is allowed
+   to wrap on its own and the whole block tightens up. */
+@media (max-width: 760px) {
+  .hero {
+    min-height: 0;
+    padding: calc(var(--nav-h) + 42px) var(--gutter) 54px;
+  }
+  .hero h1 {
+    font-size: clamp(1.85rem, 8.4vw, 2.6rem);
+    line-height: 1.18;
+    margin-bottom: 1.1rem;
+  }
+  /* The hand-placed breaks are tuned for the desktop measure; keeping them on a
+     phone strands single words on their own lines. Each break is preceded by a
+     real space in the markup, so removing it still separates the words. */
+  .hero h1 .hero-break {
+    display: none;
+  }
+  .hero-badge {
+    font-size: 0.68rem;
+    letter-spacing: 1.1px;
+    padding: 6px 13px;
+    margin-bottom: 1.2rem;
+  }
+  .hero-sub {
+    font-size: 0.97rem;
+    line-height: 1.7;
+    margin-bottom: 1.9rem;
+  }
+  .hero-stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem 1rem;
+    margin-top: 2.3rem;
+    padding-top: 1.8rem;
+  }
+  .h-stat .num {
+    font-size: 1.55rem;
+  }
+  .h-stat .lbl {
+    font-size: 0.68rem;
+    letter-spacing: 1px;
+  }
+}
+
 @media (max-width: 640px) {
   .why-grid {
     grid-template-columns: 1fr;
@@ -766,8 +814,12 @@
   .about-pillars {
     grid-template-columns: 1fr;
   }
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
   .hero-actions .btn-primary,
   .hero-actions .btn-ghost {
-    flex: 1 1 100%;
+    width: 100%;
   }
 }
