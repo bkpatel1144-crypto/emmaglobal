@@ -1,0 +1,16 @@
+node_modules
+dist
+.output
+.vercel
+.vinxi
+pnpm-lock.yaml
+package-lock.json
+bun.lock
+routeTree.gen.ts
+
+# Verbatim copies of the approved designs — reformatting them would make them
+# diverge from the source they are meant to reproduce exactly.
+design-reference
+src/content/regions-body.html
+src/styles/regions.css
+public/media

@@ -1,0 +1,662 @@
+/* ============================================================================
+   Emma Global — brand foundation
+   Tokens, base type, navigation, footer and shared furniture.
+
+   Note on token names: `--muted` and `--border` are owned by the shadcn/ui
+   block later in styles.css, so the brand equivalents are `--ink-muted` and
+   `--line`. Do not reintroduce the shadcn names here.
+   ========================================================================== */
+
+:root {
+  --ink: #0d1b2a;
+  --ink2: #2a1208;
+  --sky: #d94f1e;
+  --sky-light: #f06030;
+  --sky-pale: #fdf0eb;
+  --teal: #c0390e;
+  --teal-pale: #fde8e0;
+  --amber: #e06030;
+  --amber-pale: #fdf0eb;
+  --violet: #7c3aed;
+  --white: #ffffff;
+  --off: #f7f9fc;
+  --line: #ecd9d1;
+  --line-strong: #dfc0b4;
+
+  /* Body copy. Darkened from the reference #7a5a50 (6.2:1) to 8.5:1 so small
+     text stays comfortable, keeping the same warm hue. */
+  --ink-muted: #63483f;
+  /* Secondary/meta text that still needs to clear AA at small sizes. */
+  --ink-soft: #7a5a50;
+  /* Text on the dark navy sections. */
+  --on-dark: rgba(255, 255, 255, 0.72);
+  --on-dark-soft: rgba(255, 255, 255, 0.56);
+
+  --serif: "Sora", sans-serif;
+  --sans: "Inter", sans-serif;
+  --nav-h: 68px;
+  --gutter: 5%;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Anchor targets must clear the fixed header. */
+  scroll-padding-top: calc(var(--nav-h) + 28px);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--white);
+  line-height: 1.7;
+  min-width: 320px;
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+}
+
+img,
+video,
+svg {
+  max-width: 100%;
+}
+
+:where(a, button, [tabindex]):focus-visible {
+  outline: 2px solid var(--sky-light);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Skip link — keyboard users land here first. */
+.skip-link {
+  position: fixed;
+  top: -80px;
+  left: 16px;
+  z-index: 400;
+  background: var(--sky);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 0 0 10px 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.2s;
+}
+.skip-link:focus {
+  top: 0;
+}
+
+/* ── NAV ─────────────────────────────────────────────────────────────────
+   The shell is the fixed element. At the top of the page it sits flush and
+   full-bleed; once scrolled it gains padding on every side, which turns the
+   bar inside it into a floating glass capsule.
+   ---------------------------------------------------------------------- */
+.nav-shell {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 200;
+  padding: 0;
+  transition: padding 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.nav-shell.is-scrolled {
+  padding: 10px clamp(12px, 3vw, 32px);
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: var(--nav-h);
+  padding: 0 var(--gutter);
+  /* At the top of the page the bar always sits over a dark hero, so it can stay
+     mostly transparent and read as glass rather than as a lighter grey band. */
+  background: linear-gradient(to bottom, rgba(9, 18, 28, 0.78), rgba(9, 18, 28, 0.38));
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  backdrop-filter: blur(14px) saturate(150%);
+  border: 1px solid transparent;
+  border-bottom-color: rgba(255, 255, 255, 0.07);
+  border-radius: 0;
+  transition:
+    background 0.32s ease,
+    border-color 0.32s ease,
+    border-radius 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.32s ease,
+    padding 0.32s ease,
+    height 0.32s ease;
+}
+.nav-shell.is-scrolled .site-nav {
+  height: 62px;
+  padding: 0 clamp(16px, 2.4vw, 26px);
+  /* Once detached the capsule floats over light sections too, so it needs
+     enough opacity to stay unmistakably navy against white. */
+  background: rgba(13, 27, 42, 0.88);
+  border-color: rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  box-shadow:
+    0 10px 34px rgba(9, 18, 28, 0.32),
+    0 2px 8px rgba(9, 18, 28, 0.2);
+}
+
+/* Browsers without backdrop-filter get an opaque bar rather than unreadable text. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-nav {
+    background: rgba(9, 18, 28, 0.95);
+  }
+  .nav-shell.is-scrolled .site-nav {
+    background: rgba(13, 27, 42, 0.98);
+  }
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.nav-globe {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 10px rgba(217, 79, 30, 0.35);
+}
+.nav-globe img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+.nav-brand-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1;
+}
+.nav-brand-text .brand-script {
+  font-family: "Alex Brush", cursive;
+  font-size: 2rem;
+  color: #fff;
+  line-height: 0.88;
+}
+.nav-brand-text .brand-sub {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.62rem;
+  letter-spacing: 3.6px;
+  color: rgba(255, 255, 255, 0.86);
+  margin-top: 3px;
+}
+
+.nav-links {
+  display: flex;
+  gap: clamp(1rem, 2vw, 2rem);
+  list-style: none;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+.nav-links a {
+  position: relative;
+  font-size: 0.8rem;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.74);
+  text-decoration: none;
+  transition: color 0.2s;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -7px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--sky-light);
+  transform: scaleX(0);
+  transition: transform 0.22s ease;
+}
+.nav-links a:hover {
+  color: #fff;
+}
+.nav-links a:hover::after,
+.nav-links a.is-active::after {
+  transform: scaleX(1);
+}
+.nav-links a.is-active {
+  color: #fff;
+}
+.nav-cta {
+  background: var(--sky);
+  color: #fff !important;
+  padding: 9px 20px;
+  border-radius: 999px;
+  font-weight: 600 !important;
+  transition:
+    background 0.2s,
+    box-shadow 0.2s !important;
+}
+.nav-cta::after {
+  display: none;
+}
+.nav-cta:hover {
+  background: var(--sky-light);
+  box-shadow: 0 6px 18px rgba(217, 79, 30, 0.4);
+}
+
+/* Mobile menu — the reference simply hid the links, which left small screens
+   with no navigation at all. A disclosure panel keeps the same language. */
+.nav-toggle {
+  display: none;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  color: #fff;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+.nav-toggle:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+.nav-toggle svg {
+  width: 20px;
+  height: 20px;
+}
+.nav-panel {
+  margin-top: 10px;
+  background: rgba(13, 27, 42, 0.94);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(9, 18, 28, 0.42);
+  padding: 10px 16px 20px;
+  max-height: calc(100dvh - var(--nav-h) - 40px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.nav-shell:not(.is-scrolled) .nav-panel {
+  margin: 10px clamp(12px, 3vw, 32px) 0;
+}
+.nav-panel ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.nav-panel a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 6px;
+  color: rgba(255, 255, 255, 0.82);
+  text-decoration: none;
+  font-size: 0.88rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.nav-panel a svg {
+  width: 15px;
+  height: 15px;
+  opacity: 0.5;
+}
+.nav-panel a.is-active {
+  color: var(--sky-light);
+}
+.nav-panel .nav-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 18px;
+  border-bottom: none;
+  padding: 14px 20px;
+}
+.nav-panel .nav-cta svg {
+  display: none;
+}
+
+@media (max-width: 1040px) {
+  .nav-links {
+    display: none;
+  }
+  .nav-toggle {
+    display: inline-flex;
+  }
+}
+
+/* ── SHARED SECTION FURNITURE ───────────────────────────────────────────── */
+.eyebrow {
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--sky);
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+.eyebrow::before {
+  content: "";
+  width: 22px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.section-hdr {
+  text-align: center;
+  margin-bottom: 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.section-hdr h2 {
+  font-family: var(--serif);
+  font-size: clamp(1.75rem, 3vw, 2.4rem);
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.2;
+  max-width: 18ch;
+  text-wrap: balance;
+}
+.section-hdr p {
+  color: var(--ink-muted);
+  max-width: 58ch;
+  margin: 0;
+}
+
+/* ── BUTTONS ────────────────────────────────────────────────────────────── */
+.btn-primary,
+.btn-ghost,
+.btn-white,
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: var(--sans);
+  min-height: 48px;
+  padding: 13px 28px;
+  border: 1px solid transparent;
+}
+.btn-primary svg,
+.btn-ghost svg,
+.btn-white svg,
+.btn-outline svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.btn-primary {
+  background: var(--sky);
+  color: #fff;
+  font-weight: 600;
+  transition:
+    background 0.2s,
+    box-shadow 0.2s,
+    transform 0.15s;
+}
+.btn-primary:hover {
+  background: var(--sky-light);
+  box-shadow: 0 10px 26px rgba(217, 79, 30, 0.32);
+}
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  border-color: rgba(255, 255, 255, 0.18);
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.13);
+  border-color: rgba(255, 255, 255, 0.34);
+}
+.btn-white {
+  background: #fff;
+  color: #c0390e;
+  font-weight: 700;
+  transition:
+    box-shadow 0.2s,
+    color 0.2s;
+}
+.btn-white:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+  color: #a32e08;
+}
+.btn-outline {
+  background: transparent;
+  color: var(--sky);
+  border-color: var(--sky);
+  font-weight: 600;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.btn-outline:hover {
+  background: var(--sky);
+  color: #fff;
+}
+
+/* ── CTA BAND ───────────────────────────────────────────────────────────── */
+.cta-section {
+  background: linear-gradient(135deg, #e04010 0%, #c0300a 100%);
+  padding: 78px var(--gutter);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: radial-gradient(ellipse at 50% 40%, black, transparent 72%);
+}
+.cta-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+.cta-section h2 {
+  font-family: var(--serif);
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  color: #fff;
+  font-weight: 700;
+  line-height: 1.2;
+  max-width: 20ch;
+  text-wrap: balance;
+}
+.cta-section p {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 1.02rem;
+  max-width: 54ch;
+  margin: 0;
+}
+.cta-section .btn-white {
+  margin-top: 10px;
+}
+
+/* ── FOOTER ─────────────────────────────────────────────────────────────── */
+.site-footer {
+  background: var(--ink);
+  color: rgba(255, 255, 255, 0.62);
+  padding: 60px var(--gutter) 28px;
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr 1fr 1fr;
+  gap: 44px;
+  margin-bottom: 44px;
+}
+.f-brand .logo {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+.f-brand .logo-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.f-brand .logo-icon img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+.f-brand p {
+  font-size: 0.87rem;
+  line-height: 1.7;
+  max-width: 42ch;
+}
+.f-social {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+.f-social a {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.68);
+  transition:
+    color 0.2s,
+    border-color 0.2s,
+    background 0.2s;
+}
+.f-social a:hover {
+  color: #fff;
+  border-color: var(--sky);
+  background: var(--sky);
+}
+.f-social svg {
+  width: 17px;
+  height: 17px;
+}
+.f-col h2 {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 1.1rem;
+}
+.f-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+.f-col a {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.87rem;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.f-col a:hover {
+  color: var(--sky-light);
+}
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  padding-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px 24px;
+  flex-wrap: wrap;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+@media (max-width: 900px) {
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+  .f-brand {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 560px) {
+  .footer-top {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
