@@ -508,7 +508,11 @@ svg {
 
 /* ── CTA BAND ───────────────────────────────────────────────────────────── */
 .cta-section {
-  background: linear-gradient(135deg, #e04010 0%, #c0300a 100%);
+  /* Matched to the brand: the midpoint is the Contact Us button colour
+     (--sky, #d94f1e) and the top-left corner picks up the coral from the
+     logotype gradient (#eb4b3f → #f1945b). The band deepens toward the
+     bottom-right so the centred white text keeps its contrast. */
+  background: linear-gradient(135deg, #e3583a 0%, #d94f1e 48%, #c4400f 100%);
   padding: 78px var(--gutter);
   text-align: center;
   position: relative;
@@ -542,8 +546,10 @@ svg {
   text-wrap: balance;
 }
 .cta-section p {
-  color: rgba(255, 255, 255, 0.88);
-  font-size: 1.02rem;
+  /* Fully opaque on the lighter band — the 88% tint no longer had the contrast
+     to spare now that the background sits at the brand orange. */
+  color: #fff;
+  font-size: 1.04rem;
   max-width: 54ch;
   margin: 0;
 }
