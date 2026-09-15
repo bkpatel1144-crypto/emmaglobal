@@ -1,4 +1,4 @@
-import { site } from "./site-data";
+import { contact, primaryEmail, site } from "./site-data";
 
 type MetaTag = Record<string, string>;
 
@@ -56,6 +56,17 @@ export function organisationJsonLd() {
     image: `${site.url}${site.ogImage}`,
     description: site.description,
     slogan: site.tagline,
+    email: primaryEmail,
+    address: {
+      "@type": "PostalAddress",
+      // The country is not stated in the supplied address, but HA8 5QH /
+      // Edgware / Harrow / Middlesex is unambiguously United Kingdom.
+      streetAddress: contact.addressLines.slice(0, 2).join(", "),
+      addressLocality: "Edgware, Harrow",
+      addressRegion: "Middlesex",
+      postalCode: "HA8 5QH",
+      addressCountry: "GB",
+    },
     areaServed: [
       "South Asia",
       "Asia-Pacific",

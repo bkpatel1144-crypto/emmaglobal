@@ -53,22 +53,33 @@ import {
 } from "lucide-react";
 
 /**
- * Contact details.
+ * Contact details — the single source every page reads from.
  *
- * The address and phone number below are the placeholders carried over from the
- * approved reference design — Emma Global has not supplied the real values yet.
- * Replace the two `TODO` entries before the site goes live; every page reads
- * them from here.
+ * The office address and both email addresses are the real values supplied by
+ * Emma Global. Only the phone number is still outstanding; see the note on it.
  */
 export const contact = {
-  address: "Your Office Address, City, Country", // TODO: replace with the real registered address
-  phone: "+91 XXXXX XXXXX", // TODO: replace with the real contact number
-  phoneHref: "", // set alongside `phone`, e.g. "+919876543210"
-  email: "info@emmaglobal.com",
+  /** Registered office, one entry per rendered line. */
+  addressLines: ["12-B North Parade", "Mollison Way", "Edgware, Harrow", "Middlesex", "HA8 5QH"],
+  /**
+   * No number supplied yet. The contact rows are rendered from this value, so
+   * leaving it empty simply omits the phone line rather than publishing a
+   * placeholder. Set it and the row reappears everywhere.
+   */
+  phone: "", // TODO: add the office number
+  phoneHref: "", // set alongside `phone`, e.g. "+442080001234"
+  /** First entry is the primary address used for form delivery and mailto links. */
+  emails: ["Puwar.R@emma-global.com", "patel.a@emma-global.com"],
   hours: "Mon – Fri: 9:00 AM – 6:00 PM",
   linkedin: "https://www.linkedin.com/company/emma-global",
   twitter: "https://twitter.com/emmaglobal",
 } as const;
+
+/** Primary inbox — used for mailto links and as the contact-form fallback. */
+export const primaryEmail = contact.emails[0];
+
+/** Single-line form of the office address, for prose and structured data. */
+export const addressOneLine = contact.addressLines.join(", ");
 
 export const site = {
   name: "Emma Global",
@@ -79,12 +90,22 @@ export const site = {
   ogImage: "/og-image.png",
 } as const;
 
-export const contactChannels = [
-  { icon: MapPin, label: "Office", value: contact.address },
-  { icon: Phone, label: "Phone", value: contact.phone },
-  { icon: Mail, label: "Email", value: contact.email, href: `mailto:${contact.email}` },
-  { icon: Clock, label: "Hours", value: contact.hours },
-] as const;
+export type ContactChannel = {
+  icon: LucideIcon;
+  label: string;
+  /** One rendered line per entry. */
+  values: readonly string[];
+  /** When set, each value is rendered as a link with this prefix. */
+  hrefPrefix?: string;
+};
+
+export const contactChannels: ContactChannel[] = [
+  { icon: MapPin, label: "Office", values: contact.addressLines },
+  // Omitted entirely until a real number is supplied.
+  ...(contact.phone ? [{ icon: Phone, label: "Phone", values: [contact.phone] }] : []),
+  { icon: Mail, label: "Email", values: contact.emails, hrefPrefix: "mailto:" },
+  { icon: Clock, label: "Hours", values: [contact.hours] },
+];
 
 /* ── SERVICES ─────────────────────────────────────────────────────────────
    `items` drive the expandable list on the home page. An item with a `video`
@@ -525,7 +546,15 @@ export const serviceBySlug = (slug: string) => services.find((s) => s.slug === s
 
 /* ── HOME PAGE SECTIONS (verbatim from the reference) ─────────────────────── */
 
-export const pillars = [
+export type Pillar = {
+  icon: LucideIcon;
+  title: string;
+  text: string;
+  /** Renders a COMING SOON badge and holds the card back visually. */
+  comingSoon?: boolean;
+};
+
+export const pillars: Pillar[] = [
   {
     icon: Users,
     title: "Workforce",
@@ -539,14 +568,15 @@ export const pillars = [
   {
     icon: Leaf,
     title: "Sustainability",
-    text: "ESG strategy and compliance frameworks that build lasting trust.",
+    text: "ESG, EHS & sustainability solutions are coming soon.",
+    comingSoon: true,
   },
   {
     icon: Bot,
     title: "Digital & AI",
     text: "Technology and automation solutions that accelerate transformation.",
   },
-] as const;
+];
 
 export const advantages = [
   {

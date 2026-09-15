@@ -174,6 +174,7 @@
   gap: 14px;
 }
 .intro-tile {
+  position: relative;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 14px;
@@ -261,6 +262,7 @@
   gap: 16px;
 }
 .pillar {
+  position: relative;
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: 14px;
@@ -822,4 +824,36 @@
   .hero-actions .btn-ghost {
     width: 100%;
   }
+}
+
+/* ── COMING SOON CARDS ──
+   Announced but not yet live. The surface and icon are held back a step so the
+   card reads as pending, while the text stays at full legibility. */
+.intro-tile.is-soon {
+  background: rgba(255, 255, 255, 0.025);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+.intro-tile.is-soon .intro-tile-icon {
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.6);
+}
+.intro-tile.is-soon h3 {
+  color: rgba(255, 255, 255, 0.84);
+}
+.intro-tile.is-soon p {
+  color: rgba(255, 255, 255, 0.55);
+}
+.intro-tile.is-soon:hover {
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.pillar.is-soon {
+  background: #f5f0ed;
+}
+.pillar.is-soon .pillar-icon {
+  background: #ebe2dd;
+  color: var(--ink-soft);
+}
+.pillar.is-soon:hover .pillar-icon {
+  transform: none;
 }

@@ -2,7 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { ArrowRight, ChevronRight, Linkedin, Menu, Twitter, X } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 
-import { contact, services } from "../lib/site-data";
+import { contact, contactChannels, services } from "../lib/site-data";
 
 const nav = [
   { label: "About", to: "/about" },
@@ -179,9 +179,11 @@ export function SiteFooter() {
                 LinkedIn
               </a>
             </li>
-            <li>
-              <a href={`mailto:${contact.email}`}>{contact.email}</a>
-            </li>
+            {contact.emails.map((email) => (
+              <li key={email}>
+                <a href={`mailto:${email}`}>{email}</a>
+              </li>
+            ))}
             <li>
               <Link to="/contact">Contact Us</Link>
             </li>
@@ -255,6 +257,43 @@ export function PageHero({
         </div>
       )}
     </section>
+  );
+}
+
+/** Status pill for capabilities that are announced but not yet live. */
+export function ComingSoonBadge() {
+  return <span className="soon-badge">Coming soon</span>;
+}
+
+/** Renders the contact rows from `contactChannels` — used on home and /contact. */
+export function ContactChannels() {
+  return (
+    <div className="contact-items">
+      {contactChannels.map((channel) => {
+        const Icon = channel.icon;
+        return (
+          <div className="c-item" key={channel.label}>
+            <span className="c-item-icon">
+              <Icon aria-hidden="true" />
+            </span>
+            <span className="c-item-body">
+              <span className="c-item-label">{channel.label}</span>
+              {channel.values.map((value) =>
+                channel.hrefPrefix ? (
+                  <a key={value} href={`${channel.hrefPrefix}${value}`}>
+                    {value}
+                  </a>
+                ) : (
+                  <span className="c-item-value" key={value}>
+                    {value}
+                  </span>
+                ),
+              )}
+            </span>
+          </div>
+        );
+      })}
+    </div>
   );
 }
 

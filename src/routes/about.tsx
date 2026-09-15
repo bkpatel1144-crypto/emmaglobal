@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 
-import { CtaBand, PageHero, SectionHeader } from "../components/site-shell";
+import { ComingSoonBadge, CtaBand, PageHero, SectionHeader } from "../components/site-shell";
 import { seo } from "../lib/seo";
 import { groupStats, pillars, principles, processSteps, regions } from "../lib/site-data";
 
@@ -78,7 +78,8 @@ function AboutPage() {
           {pillars.map((pillar) => {
             const Icon = pillar.icon;
             return (
-              <div className="card" key={pillar.title}>
+              <div className={`card${pillar.comingSoon ? " is-soon" : ""}`} key={pillar.title}>
+                {pillar.comingSoon && <ComingSoonBadge />}
                 <span className="card-icon">
                   <Icon aria-hidden="true" />
                 </span>

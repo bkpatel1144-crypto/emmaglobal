@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
-import { contact, serviceOptions } from "./site-data";
+import { primaryEmail, serviceOptions } from "./site-data";
 
 export const enquirySchema = z.object({
   firstName: z.string().trim().min(1, "Enter your first name").max(80),
@@ -51,7 +51,7 @@ export const submitEnquiry = createServerFn({ method: "POST" })
     const apiKey = process.env["RESEND_API_KEY"];
     if (!apiKey) return { status: "unconfigured" };
 
-    const to = process.env["CONTACT_TO_EMAIL"] ?? contact.email;
+    const to = process.env["CONTACT_TO_EMAIL"] ?? primaryEmail;
     const from = process.env["CONTACT_FROM_EMAIL"] ?? "Emma Global Website <onboarding@resend.dev>";
     const name = `${data.firstName} ${data.lastName}`;
 

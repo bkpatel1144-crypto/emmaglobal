@@ -397,6 +397,7 @@
 }
 
 .card {
+  position: relative;
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: 16px;
@@ -1011,4 +1012,16 @@
   gap: 12px;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+/* Coming-soon variant of the generic card (used by the pillars on /about). */
+.card.is-soon {
+  background: #f5f0ed;
+}
+.card.is-soon .card-icon {
+  background: #ebe2dd;
+  color: var(--ink-soft);
+}
+.card.is-soon:hover .card-icon {
+  transform: none;
 }

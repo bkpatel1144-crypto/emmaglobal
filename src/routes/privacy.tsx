@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { PageHero } from "../components/site-shell";
 import { seo } from "../lib/seo";
-import { contact, site } from "../lib/site-data";
+import { addressOneLine, primaryEmail, site } from "../lib/site-data";
 
 /**
  * Draft policy covering what this website actually does — the contact form,
@@ -112,7 +112,7 @@ function PrivacyPage() {
             Depending on where you live, you may have the right to access the personal information
             we hold about you, correct it, ask us to delete it, object to or restrict how we use it,
             request a copy in a portable format, and withdraw consent. To exercise any of these
-            rights, email <a href={`mailto:${contact.email}`}>{contact.email}</a>. We will respond
+            rights, email <a href={`mailto:${primaryEmail}`}>{primaryEmail}</a>. We will respond
             within the period required by the applicable law. You may also complain to your local
             data protection authority.
           </p>
@@ -134,8 +134,7 @@ function PrivacyPage() {
           <h2>Contact</h2>
           <p>
             Questions about this policy or about how we handle personal information can be sent to{" "}
-            <a href={`mailto:${contact.email}`}>{contact.email}</a>, or by post to {contact.address}
-            .
+            <a href={`mailto:${primaryEmail}`}>{primaryEmail}</a>, or by post to {addressOneLine}.
           </p>
         </div>
       </section>

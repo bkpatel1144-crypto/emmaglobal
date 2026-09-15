@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { PageHero } from "../components/site-shell";
 import { seo } from "../lib/seo";
-import { contact, site } from "../lib/site-data";
+import { primaryEmail, site } from "../lib/site-data";
 
 /**
  * Draft website terms. These cover use of this site only — they are not the
@@ -132,7 +132,7 @@ function TermsPage() {
           <h2>Contact</h2>
           <p>
             Questions about these terms can be sent to{" "}
-            <a href={`mailto:${contact.email}`}>{contact.email}</a>.
+            <a href={`mailto:${primaryEmail}`}>{primaryEmail}</a>.
           </p>
         </div>
       </section>

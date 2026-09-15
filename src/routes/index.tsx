@@ -3,9 +3,9 @@ import { ArrowRight, Sparkles } from "lucide-react";
 
 import { ContactForm } from "../components/contact-form";
 import { ServiceCards } from "../components/service-cards";
-import { SectionHeader } from "../components/site-shell";
+import { ComingSoonBadge, ContactChannels, SectionHeader } from "../components/site-shell";
 import { seo } from "../lib/seo";
-import { advantages, contactChannels, pillars, sectors, services, site } from "../lib/site-data";
+import { advantages, pillars, sectors, services, site } from "../lib/site-data";
 
 export const Route = createFileRoute("/")({
   head: () => {
@@ -83,10 +83,6 @@ function HomePage() {
               </div>
               <div className="lbl">Markets Served</div>
             </div>
-            <div className="h-stat">
-              <div className="num">ESG</div>
-              <div className="lbl">Certified Consulting</div>
-            </div>
           </div>
         </div>
       </section>
@@ -110,7 +106,11 @@ function HomePage() {
           {pillars.map((pillar) => {
             const Icon = pillar.icon;
             return (
-              <div className="intro-tile" key={pillar.title}>
+              <div
+                className={`intro-tile${pillar.comingSoon ? " is-soon" : ""}`}
+                key={pillar.title}
+              >
+                {pillar.comingSoon && <ComingSoonBadge />}
                 <span className="intro-tile-icon">
                   <Icon aria-hidden="true" />
                 </span>
@@ -149,7 +149,8 @@ function HomePage() {
             {pillars.map((pillar) => {
               const Icon = pillar.icon;
               return (
-                <div className="pillar" key={pillar.title}>
+                <div className={`pillar${pillar.comingSoon ? " is-soon" : ""}`} key={pillar.title}>
+                  {pillar.comingSoon && <ComingSoonBadge />}
                   <span className="pillar-icon">
                     <Icon aria-hidden="true" />
                   </span>
@@ -240,26 +241,7 @@ function HomePage() {
               Reach out to our team to explore how Emma Global's integrated solutions can be
               tailored to your unique business needs.
             </p>
-            <div className="contact-items">
-              {contactChannels.map((channel) => {
-                const Icon = channel.icon;
-                return (
-                  <div className="c-item" key={channel.label}>
-                    <span className="c-item-icon">
-                      <Icon aria-hidden="true" />
-                    </span>
-                    <span className="c-item-body">
-                      <span className="c-item-label">{channel.label}</span>
-                      {"href" in channel && channel.href ? (
-                        <a href={channel.href}>{channel.value}</a>
-                      ) : (
-                        <span className="c-item-value">{channel.value}</span>
-                      )}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
+            <ContactChannels />
           </div>
           <ContactForm />
         </div>

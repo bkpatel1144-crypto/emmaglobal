@@ -3,7 +3,7 @@ import { ArrowRight, Briefcase, MapPin } from "lucide-react";
 
 import { CtaBand, PageHero, SectionHeader } from "../components/site-shell";
 import { seo } from "../lib/seo";
-import { benefits, contact, processSteps, roles } from "../lib/site-data";
+import { benefits, primaryEmail, processSteps, roles } from "../lib/site-data";
 
 export const Route = createFileRoute("/careers")({
   head: () => {
@@ -114,7 +114,7 @@ function CareersPage() {
                 </div>
                 <a
                   className="btn-outline"
-                  href={`mailto:${contact.email}?subject=${encodeURIComponent(`Application — ${role.title}`)}`}
+                  href={`mailto:${primaryEmail}?subject=${encodeURIComponent(`Application — ${role.title}`)}`}
                 >
                   Apply
                   <ArrowRight aria-hidden="true" />
@@ -124,8 +124,8 @@ function CareersPage() {
           </div>
           <p className="legal-meta" style={{ marginTop: "36px" }}>
             Don't see your role? Send your CV and a short note about the work you want to do to{" "}
-            <a href={`mailto:${contact.email}`} style={{ color: "var(--sky)", fontWeight: 600 }}>
-              {contact.email}
+            <a href={`mailto:${primaryEmail}`} style={{ color: "var(--sky)", fontWeight: 600 }}>
+              {primaryEmail}
             </a>
             . We review speculative applications every month.
           </p>

@@ -2,9 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Check } from "lucide-react";
 
 import { ContactForm } from "../components/contact-form";
-import { PageHero, SectionHeader } from "../components/site-shell";
+import { ContactChannels, PageHero, SectionHeader } from "../components/site-shell";
 import { seo } from "../lib/seo";
-import { contactChannels, faqs, regions, services } from "../lib/site-data";
+import { faqs, regions, services } from "../lib/site-data";
 import { Accordion } from "../components/accordion";
 
 export const Route = createFileRoute("/contact")({
@@ -45,26 +45,7 @@ function ContactPage() {
               Every enquiry reaches a practice lead rather than a queue. If your question spans more
               than one of our four services, say so — that is the case we are built for.
             </p>
-            <div className="contact-items">
-              {contactChannels.map((channel) => {
-                const Icon = channel.icon;
-                return (
-                  <div className="c-item" key={channel.label}>
-                    <span className="c-item-icon">
-                      <Icon aria-hidden="true" />
-                    </span>
-                    <span className="c-item-body">
-                      <span className="c-item-label">{channel.label}</span>
-                      {"href" in channel && channel.href ? (
-                        <a href={channel.href}>{channel.value}</a>
-                      ) : (
-                        <span className="c-item-value">{channel.value}</span>
-                      )}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
+            <ContactChannels />
 
             <h3
               style={{

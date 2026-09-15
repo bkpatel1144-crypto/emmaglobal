@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { enquirySchema, submitEnquiry, type EnquiryInput } from "../lib/enquiry";
-import { contact, serviceOptions } from "../lib/site-data";
+import { primaryEmail, serviceOptions } from "../lib/site-data";
 
 type Status = "idle" | "sending" | "sent" | "mail-client" | "error";
 
@@ -18,7 +18,7 @@ function mailtoHref(data: EnquiryInput) {
     "",
     data.message,
   ].join("\n");
-  return `mailto:${contact.email}?subject=${encodeURIComponent(
+  return `mailto:${primaryEmail}?subject=${encodeURIComponent(
     `Website enquiry — ${data.service}`,
   )}&body=${encodeURIComponent(body)}`;
 }
@@ -77,8 +77,8 @@ export function ContactForm() {
         <h3>Thank you — your message is on its way.</h3>
         <p className="f-note">
           A member of the Emma Global team will reply shortly. If it's urgent, email us at{" "}
-          <a href={`mailto:${contact.email}`} style={{ color: "var(--sky)", fontWeight: 600 }}>
-            {contact.email}
+          <a href={`mailto:${primaryEmail}`} style={{ color: "var(--sky)", fontWeight: 600 }}>
+            {primaryEmail}
           </a>
           .
         </p>
@@ -163,8 +163,8 @@ export function ContactForm() {
         <p className="f-note" role="status">
           We've opened your email app with the message ready to send. If nothing happened, email us
           at{" "}
-          <a href={`mailto:${contact.email}`} style={{ color: "var(--sky)", fontWeight: 600 }}>
-            {contact.email}
+          <a href={`mailto:${primaryEmail}`} style={{ color: "var(--sky)", fontWeight: 600 }}>
+            {primaryEmail}
           </a>
           .
         </p>
@@ -172,8 +172,8 @@ export function ContactForm() {
       {status === "error" && (
         <p className="f-error" role="alert">
           {error}{" "}
-          <a href={`mailto:${contact.email}`} style={{ color: "var(--sky)", fontWeight: 600 }}>
-            {contact.email}
+          <a href={`mailto:${primaryEmail}`} style={{ color: "var(--sky)", fontWeight: 600 }}>
+            {primaryEmail}
           </a>
         </p>
       )}

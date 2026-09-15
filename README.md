@@ -56,9 +56,11 @@ enquiry pre-filled, so a missing secret can never break the site. See `.env.exam
 
 These are the only items that still need real values from Emma Global:
 
-1. **Contact details** — `src/lib/site-data.ts` → `contact`. The postal address and
-   phone number are the `XXXXX` placeholders carried over from the approved design.
-   Both are marked `TODO`; every page reads from this one object.
+1. **Phone number** — `src/lib/site-data.ts` → `contact.phone` is empty, so the
+   phone row is omitted everywhere rather than showing a placeholder. Set it and
+   the row reappears on the home page, /contact and in structured data. The
+   office address and both email addresses are the real values supplied by the
+   client.
 2. **Production domain** — `site.url` in `src/lib/site-data.ts`, the `Sitemap:` line
    in `public/robots.txt`, and `SITE_URL` if it differs from `emmaglobal.com`.
 3. **Social profiles** — `contact.linkedin` and `contact.twitter` are best guesses.
