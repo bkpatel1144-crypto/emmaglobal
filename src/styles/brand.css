@@ -193,25 +193,21 @@ svg {
   display: block;
   object-fit: cover;
 }
-.nav-brand-text {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  line-height: 1;
+/* The wordmark is the logo artwork, so it scales as one image rather than as
+   two pieces of live text that never quite matched the drawn lettering. */
+.nav-wordmark {
+  display: block;
+  height: 38px;
+  width: auto;
+  flex-shrink: 0;
 }
-.nav-brand-text .brand-script {
-  font-family: "Alex Brush", cursive;
-  font-size: 2rem;
-  color: #fff;
-  line-height: 0.88;
+.nav-shell.is-scrolled .nav-wordmark {
+  height: 35px;
 }
-.nav-brand-text .brand-sub {
-  font-family: var(--sans);
-  font-weight: 700;
-  font-size: 0.62rem;
-  letter-spacing: 3.6px;
-  color: rgba(255, 255, 255, 0.86);
-  margin-top: 3px;
+@media (max-width: 420px) {
+  .nav-wordmark {
+    height: 32px;
+  }
 }
 
 .nav-links {

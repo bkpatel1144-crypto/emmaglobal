@@ -5,7 +5,7 @@ import { ContactForm } from "../components/contact-form";
 import { ServiceCards } from "../components/service-cards";
 import { ComingSoonBadge, ContactChannels, SectionHeader } from "../components/site-shell";
 import { seo } from "../lib/seo";
-import { advantages, pillars, sectors, services, site } from "../lib/site-data";
+import { advantages, availableServices, pillars, sectors, site } from "../lib/site-data";
 
 export const Route = createFileRoute("/")({
   head: () => {
@@ -167,10 +167,10 @@ function HomePage() {
       <section className="services-section" id="services">
         <SectionHeader
           eyebrow="What We Offer"
-          title="Our Four Core Services"
+          title="Our Core Services"
           text="Comprehensive, integrated solutions designed to drive efficiency, compliance, and sustainable growth across your organisation."
         />
-        <ServiceCards services={services} />
+        <ServiceCards services={availableServices} />
       </section>
 
       {/* ── WHY EMMA ── */}
@@ -184,7 +184,11 @@ function HomePage() {
           {advantages.map((advantage) => {
             const Icon = advantage.icon;
             return (
-              <div className="why-card" key={advantage.title}>
+              <div
+                className={`why-card${advantage.comingSoon ? " is-soon" : ""}`}
+                key={advantage.title}
+              >
+                {advantage.comingSoon && <ComingSoonBadge />}
                 <span className="why-card-icon">
                   <Icon aria-hidden="true" />
                 </span>

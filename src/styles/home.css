@@ -585,6 +585,7 @@
   gap: 22px;
 }
 .why-card {
+  position: relative;
   background: rgba(255, 255, 255, 0.045);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
@@ -855,5 +856,26 @@
   color: var(--ink-soft);
 }
 .pillar.is-soon:hover .pillar-icon {
+  transform: none;
+}
+
+.why-card.is-soon {
+  background: rgba(255, 255, 255, 0.022);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+.why-card.is-soon .why-card-icon {
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.6);
+}
+.why-card.is-soon h3 {
+  color: rgba(255, 255, 255, 0.84);
+}
+.why-card.is-soon p {
+  color: rgba(255, 255, 255, 0.56);
+}
+.why-card.is-soon:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+.why-card.is-soon:hover .why-card-icon {
   transform: none;
 }

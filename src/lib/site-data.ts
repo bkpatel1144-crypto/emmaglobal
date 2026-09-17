@@ -135,6 +135,13 @@ export type Service = {
   deliverables: { icon: LucideIcon; title: string; text: string }[];
   outcomes: { value: string; label: string }[];
   faqs: { q: string; a: string }[];
+  /**
+   * Not launched yet. The service is hidden from the site entirely — the cards,
+   * the /services listing, the footer, the sidebar and the sitemap — and its
+   * detail page returns 404. Remove this flag to bring it back; all of the copy
+   * below is kept intact and ready.
+   */
+  comingSoon?: boolean;
 };
 
 export const services: Service[] = [
@@ -353,6 +360,8 @@ export const services: Service[] = [
   },
   {
     slug: "esg-advisory-audits",
+    // Launching later — hidden site-wide until then. Delete this line to publish.
+    comingSoon: true,
     title: "ESG advisory and Audits",
     shortTitle: "ESG Advisory",
     icon: Leaf,
@@ -544,6 +553,14 @@ export const services: Service[] = [
 
 export const serviceBySlug = (slug: string) => services.find((s) => s.slug === slug);
 
+/**
+ * The services actually offered today. Everything that lists or links services —
+ * the home grid, /services, the footer, the detail sidebar and the sitemap —
+ * reads from this, so clearing a `comingSoon` flag publishes the service
+ * everywhere at once.
+ */
+export const availableServices = services.filter((s) => !s.comingSoon);
+
 /* ── HOME PAGE SECTIONS (verbatim from the reference) ─────────────────────── */
 
 export type Pillar = {
@@ -578,7 +595,15 @@ export const pillars: Pillar[] = [
   },
 ];
 
-export const advantages = [
+export type Advantage = {
+  icon: LucideIcon;
+  title: string;
+  text: string;
+  /** Renders a COMING SOON badge and holds the card back visually. */
+  comingSoon?: boolean;
+};
+
+export const advantages: Advantage[] = [
   {
     icon: Network,
     title: "Fully Integrated Approach",
@@ -597,7 +622,8 @@ export const advantages = [
   {
     icon: Leaf,
     title: "Sustainability at the Core",
-    text: "ESG isn't an add-on — it's woven into everything we do, helping you build a business that's profitable and responsible.",
+    text: "ESG, EHS and sustainability will be woven through everything we do — helping you build a business that's profitable and responsible.",
+    comingSoon: true,
   },
   {
     icon: Sparkles,
@@ -609,7 +635,7 @@ export const advantages = [
     title: "Long-Term Partnership",
     text: "We invest in understanding your goals deeply and grow with you, providing ongoing support as your business evolves.",
   },
-] as const;
+];
 
 export const sectors = [
   { icon: Factory, name: "Manufacturing" },
@@ -889,7 +915,7 @@ export const benefits = [
 
 export const faqs = [
   {
-    q: "Do we have to take all four services?",
+    q: "Do we have to take every service?",
     a: "No. Most engagements begin with one service. The advantage of the integrated model is that when a second area comes into scope, it connects to work already in place rather than starting again with a new supplier.",
   },
   {

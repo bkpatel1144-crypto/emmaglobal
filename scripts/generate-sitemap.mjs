@@ -25,9 +25,20 @@ if (start === -1)
 const end = siteData.indexOf("\nexport const ", start + 1);
 const servicesBlock = siteData.slice(start, end === -1 ? undefined : end);
 
-const serviceSlugs = [...servicesBlock.matchAll(/\bslug:\s*"([a-z0-9-]+)"/g)].map((m) => m[1]);
+// Split the block per service object so a `comingSoon` flag can be read against
+// the service it belongs to. Unlaunched services have no public page, so they
+// must not appear in the sitemap.
+const serviceSlugs = servicesBlock
+  .split(/\n  \{\n/)
+  .map((chunk) => {
+    const slug = chunk.match(/\bslug:\s*"([a-z0-9-]+)"/);
+    if (!slug) return null;
+    return /\bcomingSoon:\s*true\b/.test(chunk) ? null : slug[1];
+  })
+  .filter((slug) => slug !== null);
+
 if (serviceSlugs.length === 0)
-  throw new Error("generate-sitemap: no service slugs found in the `services` block");
+  throw new Error("generate-sitemap: no published service slugs found in the `services` block");
 
 const pages = [
   { path: "/", priority: "1.0", changefreq: "monthly" },

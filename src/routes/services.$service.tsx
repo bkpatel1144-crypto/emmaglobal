@@ -4,14 +4,16 @@ import { ArrowRight, Check, Video } from "lucide-react";
 import { Accordion } from "../components/accordion";
 import { CtaBand, PageHero, SectionHeader } from "../components/site-shell";
 import { seo } from "../lib/seo";
-import { processSteps, serviceBySlug, services } from "../lib/site-data";
+import { availableServices, processSteps, serviceBySlug } from "../lib/site-data";
 
 export const Route = createFileRoute("/services/$service")({
   // Only the slug crosses the server/client boundary. The service objects hold
   // lucide icon *components*, which have no serialisable form — returning one
   // from the loader breaks the hydration payload.
   loader: ({ params }) => {
-    if (!serviceBySlug(params.service)) throw notFound();
+    const service = serviceBySlug(params.service);
+    // A service that has not launched has no public page yet.
+    if (!service || service.comingSoon) throw notFound();
     return { slug: params.service };
   },
   head: ({ loaderData }) => {
@@ -55,7 +57,7 @@ function ServiceDetailPage() {
           <aside className="side-card">
             <h2>All services</h2>
             <ul>
-              {services.map((other) => {
+              {availableServices.map((other) => {
                 const Icon = other.icon;
                 return (
                   <li key={other.slug}>

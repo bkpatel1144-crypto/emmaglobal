@@ -4,14 +4,14 @@ import { ArrowRight } from "lucide-react";
 import { Accordion } from "../components/accordion";
 import { CtaBand, PageHero, SectionHeader } from "../components/site-shell";
 import { seo } from "../lib/seo";
-import { faqs, groupStats, processSteps, services } from "../lib/site-data";
+import { availableServices, faqs, groupStats, processSteps } from "../lib/site-data";
 
 export const Route = createFileRoute("/services")({
   head: () => {
     const { meta, links } = seo({
       title: "Our Services",
       description:
-        "Four integrated services from Emma Global: HR solutions, administration services, ESG advisory and audits, and digital and AI solutions.",
+        "Integrated services from Emma Global: HR solutions, administration services, and digital and AI solutions.",
       path: "/services",
     });
     return { meta, links };
@@ -35,15 +35,15 @@ function ServicesIndex() {
       <PageHero
         crumbs={[{ label: "Services" }]}
         eyebrow="What We Offer"
-        title="Our Four Core"
+        title="Our Core"
         accent="Services"
-        description="Comprehensive, integrated solutions designed to drive efficiency, compliance, and sustainable growth. Take one service, or connect all four under a single accountable partner."
+        description="Comprehensive, integrated solutions designed to drive efficiency, compliance, and sustainable growth. Take a single service, or connect them all under one accountable partner."
         stats={groupStats}
       />
 
       <section className="section section-light">
         <div className="card-grid cols-2">
-          {services.map((service) => {
+          {availableServices.map((service) => {
             const Icon = service.icon;
             return (
               <div className="card" key={service.slug}>

@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { Accordion } from "../components/accordion";
-import { CtaBand, PageHero, SectionHeader } from "../components/site-shell";
+import { ComingSoonBadge, CtaBand, PageHero, SectionHeader } from "../components/site-shell";
 import { seo } from "../lib/seo";
 import { advantages, faqs, groupStats, processSteps } from "../lib/site-data";
 
@@ -40,7 +40,11 @@ function WhyUsPage() {
           {advantages.map((advantage) => {
             const Icon = advantage.icon;
             return (
-              <div className="why-card" key={advantage.title}>
+              <div
+                className={`why-card${advantage.comingSoon ? " is-soon" : ""}`}
+                key={advantage.title}
+              >
+                {advantage.comingSoon && <ComingSoonBadge />}
                 <span className="why-card-icon">
                   <Icon aria-hidden="true" />
                 </span>

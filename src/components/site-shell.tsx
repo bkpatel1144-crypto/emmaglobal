@@ -2,7 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { ArrowRight, ChevronRight, Linkedin, Menu, Twitter, X } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 
-import { contact, contactChannels, services } from "../lib/site-data";
+import { availableServices, contact, contactChannels } from "../lib/site-data";
 
 const nav = [
   { label: "About", to: "/about" },
@@ -18,10 +18,10 @@ export function BrandLockup() {
       <span className="nav-globe">
         <img src="/media/emma-logo-source.jpg" alt="" width={40} height={40} />
       </span>
-      <span className="nav-brand-text">
-        <span className="brand-script">emma</span>
-        <span className="brand-sub">GLOBAL</span>
-      </span>
+      {/* The wordmark is the artwork lifted straight out of the logo, not a
+          webfont setting of it — Alex Brush only ever approximated the real
+          lettering (different 'e', no swash on the final 'a', no swoosh). */}
+      <img className="nav-wordmark" src="/logo-wordmark.png" alt="" width={232} height={76} />
     </Link>
   );
 }
@@ -142,7 +142,7 @@ export function SiteFooter() {
         <div className="f-col">
           <h2>Services</h2>
           <ul>
-            {services.map((service) => (
+            {availableServices.map((service) => (
               <li key={service.slug}>
                 <Link to="/services/$service" params={{ service: service.slug }}>
                   {service.shortTitle}

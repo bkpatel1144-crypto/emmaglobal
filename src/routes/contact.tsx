@@ -4,7 +4,7 @@ import { Check } from "lucide-react";
 import { ContactForm } from "../components/contact-form";
 import { ContactChannels, PageHero, SectionHeader } from "../components/site-shell";
 import { seo } from "../lib/seo";
-import { faqs, regions, services } from "../lib/site-data";
+import { availableServices, faqs, regions } from "../lib/site-data";
 import { Accordion } from "../components/accordion";
 
 export const Route = createFileRoute("/contact")({
@@ -43,7 +43,7 @@ function ContactPage() {
             <h2>Talk to the team</h2>
             <p>
               Every enquiry reaches a practice lead rather than a queue. If your question spans more
-              than one of our four services, say so — that is the case we are built for.
+              than one of our services, say so — that is the case we are built for.
             </p>
             <ContactChannels />
 
@@ -59,7 +59,7 @@ function ContactPage() {
               What we can help with
             </h3>
             <ul className="check-list">
-              {services.map((service) => (
+              {availableServices.map((service) => (
                 <li key={service.slug}>
                   <Check aria-hidden="true" />
                   <span>{service.title}</span>
