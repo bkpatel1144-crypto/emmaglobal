@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 
 import { CtaBand, PageHero } from "../components/site-shell";
 import regionsBody from "../content/regions-body.html?raw";
-import { seo } from "../lib/seo";
+import { breadcrumbJsonLd, jsonLd, seo } from "../lib/seo";
 
 const META: Record<string, { hub: string; region: string; count: number; tone: string }> = {
   "south-asia": { hub: "Delhi", region: "South Asia", count: 7, tone: "r1" },
@@ -27,6 +27,7 @@ export const Route = createFileRoute("/regions")({
     });
     return {
       meta,
+      scripts: [jsonLd(breadcrumbJsonLd([{ name: "Regions", path: "/regions" }]))],
       links: [
         ...links,
         // These three families are used only by this page's design.

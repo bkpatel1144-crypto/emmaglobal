@@ -1,0 +1,36 @@
+# Emma Global
+
+> Emma Global delivers integrated solutions across workforce management, administration, ESG, and digital innovation — helping businesses scale efficiently and sustainably.
+
+Emma Global is an integrated business services firm operating from four regional hubs —
+Delhi (South Asia), Singapore (Asia-Pacific), United Kingdom (UK and Europe), Dubai (Middle East and Africa) — covering 30 markets.
+Rather than supplying one function, it runs workforce, administration, sustainability and
+digital work under a single accountable relationship.
+
+Office: 12-B North Parade, Mollison Way, Edgware, Harrow, Middlesex, HA8 5QH. Contact: Puwar.R@emma-global.com, patel.a@emma-global.com.
+
+## Services
+
+- [Human Resources (HR Solutions)](https://emma-global.com/services/hr-solutions): Comprehensive talent acquisition and workforce management solutions across skilled and professional roles, tailored to meet your business needs.
+- [Administration Services](https://emma-global.com/services/administration-services): Streamlined administrative and operational support to enhance efficiency, ensure compliance, and improve day-to-day business performance.
+- [Digital & AI Solutions](https://emma-global.com/services/digital-ai-solutions): Leveraging technology, automation, and AI-driven insights to optimize processes and accelerate digital transformation.
+
+## Company
+
+- [Home](https://emma-global.com/)
+- [About Us](https://emma-global.com/about)
+- [Regions We Serve](https://emma-global.com/regions)
+- [Why Choose Us](https://emma-global.com/why-us)
+- [Case Studies](https://emma-global.com/case-studies)
+- [Our Team](https://emma-global.com/team)
+- [Careers](https://emma-global.com/careers)
+
+## Contact and legal
+
+- [Contact Us](https://emma-global.com/contact)
+- [Privacy Policy](https://emma-global.com/privacy)
+- [Terms of Use](https://emma-global.com/terms)
+
+## Optional
+
+- [Full site text](https://emma-global.com/llms-full.txt): every page's substantive copy in one file.

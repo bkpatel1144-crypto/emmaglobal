@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 
 import { ComingSoonBadge, CtaBand, PageHero, SectionHeader } from "../components/site-shell";
-import { seo } from "../lib/seo";
+import { breadcrumbJsonLd, jsonLd, seo } from "../lib/seo";
 import { groupStats, pillars, principles, processSteps, regions } from "../lib/site-data";
 
 export const Route = createFileRoute("/about")({
@@ -13,7 +13,11 @@ export const Route = createFileRoute("/about")({
         "Emma Global connects workforce, administration, ESG and digital work under one accountable partner, so organisations can move on all four fronts at once.",
       path: "/about",
     });
-    return { meta, links };
+    return {
+      meta,
+      links,
+      scripts: [jsonLd(breadcrumbJsonLd([{ name: "About", path: "/about" }]))],
+    };
   },
   component: AboutPage,
 });

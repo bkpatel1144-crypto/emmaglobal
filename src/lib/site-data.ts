@@ -81,13 +81,34 @@ export const primaryEmail = contact.emails[0];
 /** Single-line form of the office address, for prose and structured data. */
 export const addressOneLine = contact.addressLines.join(", ");
 
+/**
+ * Production origin, no trailing slash.
+ *
+ * Every canonical URL, Open Graph tag, sitemap entry, robots directive and
+ * piece of structured data is built from this one value. Override it without
+ * touching code by setting `VITE_SITE_URL` (Vercel) — `SITE_URL` is the
+ * equivalent for the SEO generator, which runs in plain Node.
+ */
+function resolveSiteUrl(): string {
+  const fromVite = (import.meta as unknown as { env?: Record<string, string | undefined> }).env?.[
+    "VITE_SITE_URL"
+  ];
+  const fromNode =
+    typeof process !== "undefined"
+      ? (process.env as Record<string, string | undefined>)?.["SITE_URL"]
+      : undefined;
+  return (fromVite || fromNode || "https://emma-global.com").replace(/\/+$/, "");
+}
+
 export const site = {
   name: "Emma Global",
+  legalName: "Emma Global",
   tagline: "Empowering Workforce, Sustainability & Digital Transformation",
   description:
     "Emma Global delivers integrated solutions across workforce management, administration, ESG, and digital innovation — helping businesses scale efficiently and sustainably.",
-  url: "https://emmaglobal.com",
+  url: resolveSiteUrl(),
   ogImage: "/og-image.png",
+  locale: "en_GB",
 } as const;
 
 export type ContactChannel = {

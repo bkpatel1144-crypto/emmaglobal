@@ -3,7 +3,7 @@ import { ArrowRight, Check, Video } from "lucide-react";
 
 import { Accordion } from "../components/accordion";
 import { CtaBand, PageHero, SectionHeader } from "../components/site-shell";
-import { seo } from "../lib/seo";
+import { breadcrumbJsonLd, faqJsonLd, jsonLd, seo, serviceJsonLd } from "../lib/seo";
 import { availableServices, processSteps, serviceBySlug } from "../lib/site-data";
 
 export const Route = createFileRoute("/services/$service")({
@@ -24,7 +24,20 @@ export const Route = createFileRoute("/services/$service")({
       description: service.summary,
       path: `/services/${service.slug}`,
     });
-    return { meta, links };
+    return {
+      meta,
+      links,
+      scripts: [
+        jsonLd(
+          breadcrumbJsonLd([
+            { name: "Services", path: "/services" },
+            { name: service.shortTitle, path: `/services/${service.slug}` },
+          ]),
+        ),
+        jsonLd(serviceJsonLd(service)),
+        jsonLd(faqJsonLd(service.faqs)),
+      ],
+    };
   },
   component: ServiceDetailPage,
 });

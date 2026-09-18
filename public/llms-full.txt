@@ -1,0 +1,217 @@
+# Emma Global — full site text
+
+> Emma Global delivers integrated solutions across workforce management, administration, ESG, and digital innovation — helping businesses scale efficiently and sustainably.
+
+Source: https://emma-global.com · Generated 2026-09-18
+This file is produced from the site's own content, so it always matches what is published.
+
+## Overview
+
+Emma Global delivers integrated solutions across workforce management, administration,
+sustainability and digital innovation. The proposition is that these four areas interact —
+a hiring decision changes a compliance obligation, an automation decision changes a job —
+and handling them under one relationship removes the gaps that appear between separate
+suppliers.
+
+Tagline: Empowering Workforce, Sustainability & Digital Transformation
+Office: 12-B North Parade, Mollison Way, Edgware, Harrow, Middlesex, HA8 5QH
+Email: Puwar.R@emma-global.com, patel.a@emma-global.com
+Hours: Mon – Fri: 9:00 AM – 6:00 PM
+
+## Domains
+
+### Workforce
+End-to-end HR and talent management solutions for modern organizations.
+
+### Administration
+Streamlined operations and facility management for peak performance.
+
+### Sustainability (coming soon)
+ESG, EHS & sustainability solutions are coming soon.
+
+### Digital & AI
+Technology and automation solutions that accelerate transformation.
+
+## Services
+
+### Human Resources (HR Solutions)
+URL: https://emma-global.com/services/hr-solutions
+
+Comprehensive talent acquisition and workforce management solutions across skilled and professional roles, tailored to meet your business needs.
+
+Hiring, paying, developing and retaining people are usually handled by separate systems and separate suppliers. The result is duplicated effort, inconsistent data and policies that drift apart from day-to-day practice.
+
+We bring the employee lifecycle together. Talent acquisition is run against a clear role definition and workforce plan. Payroll, compliance and policy work operate from the same records. Engagement and development programmes are designed around what the workforce data is actually telling you.
+
+That connected view means fewer gaps at handover points, faster time-to-productivity for new joiners, and an HR function that leadership can plan around with confidence.
+
+Scope of work:
+- Talent acquisition: Skilled, technical and professional hiring run against a workforce plan, with structured assessment at each stage.
+- Payroll operations: Processing, statutory filings and records management, delivered to a fixed monthly calendar.
+- Policy & compliance: Employment policy frameworks, statutory compliance reviews and documentation that survives an audit.
+- Engagement & surveys: Workplace surveys with honest analysis and an action cycle that is tracked to completion.
+- Training & development: Needs analysis, programme design and delivery focused on the capability gaps that constrain the business.
+- Organisation development: Structure, role design, restructuring and the change support that makes any of it stick.
+
+Included:
+- Comprehensive Talent Acquisition for Skilled & Professional Workforce: Sourcing, assessment and onboarding for technical, skilled and professional roles, run against a defined workforce plan rather than a stream of one-off vacancies.
+- Payroll management: End-to-end payroll processing, statutory deductions and filings, with records kept in a state where an audit needs no reconstruction.
+- Employee engagement: Engagement programmes built on what the workforce data actually shows, with follow-through tracked rather than announced once and forgotten.
+- Compliance & policies: Employment policy frameworks kept current with the law and, just as importantly, with what happens on site.
+- Training & development: Training needs analysis, programme design and delivery, aimed at the capability gaps that limit the business today.
+- Employee Workplace Survey: Structured surveys with honest reporting and a defined action cycle, so results lead somewhere.
+- Organization development: Structure, role design and change support for teams that have outgrown the way they were originally set up.
+
+Questions:
+- Can you take on payroll for an existing workforce?
+  Yes. Payroll transitions run to an agreed plan — we run a parallel cycle before cutover so nothing depends on a single switchover date.
+- Do you replace our internal HR team?
+  Almost never. We usually take the operational load — payroll, compliance, sourcing — so the internal team can focus on the work that needs to sit inside the business.
+- How do you handle high-volume skilled hiring?
+  Against a workforce plan rather than a vacancy list, with a defined assessment process and a single pipeline view, so quality does not fall away as volume rises.
+
+### Administration Services
+URL: https://emma-global.com/services/administration-services
+
+Streamlined administrative and operational support to enhance efficiency, ensure compliance, and improve day-to-day business performance.
+
+Administration is the work that becomes visible only when it fails. A missed renewal, an unmanaged vendor, a facility issue that nobody owns — each one pulls senior people away from the work they were hired to do.
+
+Emma Global takes operational responsibility for that layer. We manage offices and facilities, coordinate vendors against agreed service levels, keep documentation current and audit-ready, and run the employee services — catering and transport among them — that shape daily experience.
+
+Everything runs to a defined calendar with named owners and reporting, so you can see what is on track and what needs a decision.
+
+Scope of work:
+- Facility management: Offices and facilities across single or multiple sites, run to a maintenance and inspection calendar.
+- Vendor management: Selection, contracting and service-level monitoring, with performance reviewed on a fixed cycle.
+- Documentation control: Registers, renewals and compliance records maintained so nothing lapses without warning.
+- Operational support: The recurring administrative workload, absorbed and reported rather than left to absorb your team.
+- Employee services: Catering and transport coordination delivered against measured service levels.
+- Cost & performance reporting: Periodic reporting on spend, service levels and exceptions, in a format leadership can act on.
+
+Included:
+- Office & facility management: Day-to-day management of offices and facilities across single or multiple sites, with named ownership for every recurring task.
+- Vendor coordination: Vendor selection, contracting and performance monitoring against agreed service levels rather than goodwill.
+- Documentation & compliance: Document control, renewal calendars and compliance registers kept current, so nothing lapses unnoticed.
+- Operational support: The recurring administrative work that otherwise consumes senior people's time, handled to a defined calendar.
+- Catering service: Workplace catering managed as a measured service, with quality and cost both visible.
+- Cab service: Employee transport coordination covering routing, safety compliance and cost tracking.
+
+Questions:
+- Can you manage sites in more than one city?
+  Yes. Multi-site administration is the common case — one operating standard, one reporting pack, local delivery at each site.
+- Do you take over existing vendor contracts?
+  Where it helps. We review what is in place, keep what performs, and renegotiate or replace what does not.
+- How is performance measured?
+  Against service levels agreed at the start, reported on a fixed cycle, with exceptions raised as they happen rather than at review time.
+
+### Digital & AI Solutions
+URL: https://emma-global.com/services/digital-ai-solutions
+
+Leveraging technology, automation, and AI-driven insights to optimize processes and accelerate digital transformation.
+
+Most automation disappoints for the same reason: it is applied to a process that was never redesigned. The inefficiency is preserved, only faster and harder to see.
+
+We map the process first, remove what is unnecessary, and then automate what remains. Analytics work follows the same discipline — we identify the decisions that need better information, and build reporting for those rather than assembling dashboards nobody opens.
+
+Where AI is the right tool we apply it with governance attached: defined use cases, human review where it matters, and clear rules about what data may be used. Adoption support is part of the work, because a system nobody trusts delivers nothing.
+
+Scope of work:
+- Process mapping: The current process documented as it actually runs, with duplication and dead steps identified.
+- Automation delivery: Automation applied to the simplified process, scoped to what measurably pays back.
+- Analytics & reporting: Reporting built around specific decisions, with the data lineage behind each number.
+- AI governance: Defined use cases, permitted data, and human review where the stakes require it.
+- Digital roadmap: A phased plan where each stage ships something usable rather than deferring all value to the end.
+- Adoption support: Training and hand-holding through the change, because an untrusted system delivers nothing.
+
+Included:
+- Process automation: Processes mapped and simplified before anything is automated, so the inefficiency is removed rather than accelerated.
+- AI-powered analytics: Reporting built around the decisions that need better information, instead of dashboards nobody opens.
+- Digital transformation: Phased roadmaps with each stage delivering something usable, rather than a single distant cutover.
+- Workflow optimization: Handoffs, approvals and duplicated data entry removed across functions and systems.
+
+Questions:
+- We automated a process and saw no benefit. What went wrong?
+  Usually the process was automated as-is. If duplicated approvals and multiple data-entry points remain in the flow, automation just makes them run faster. We map and simplify first.
+- How do you govern AI use?
+  Use cases are defined before a tool goes into service, permitted data is stated in writing, and human review is required wherever an error would carry real consequences.
+- Do you replace our existing systems?
+  Rarely. Most value comes from removing steps and connecting what is already in place, not from another migration.
+
+## Regions
+
+### South Asia
+Hub: Delhi · 7 markets · USD 27.9T · 3.2 bn people
+India, Nepal, Bangladesh, Sri Lanka, China, Maldives and Russia, served from Delhi.
+
+### Asia-Pacific
+Hub: Singapore · 8 markets · USD 29.9T · 2 bn+ people
+Singapore, Indonesia, Thailand, Vietnam, China, Australia, South Korea and Japan.
+
+### UK and Europe
+Hub: United Kingdom · 8 markets · USD 20.0T · 640 mn people
+The UK, Germany, France, Spain, Italy, Romania, Turkey and Brazil.
+
+### Middle East and Africa
+Hub: Dubai · 9 markets · USD 5.8T · 410 mn people
+UAE, Qatar, Bahrain, Oman, Saudi Arabia, Israel, Tanzania, South Africa and Brazil.
+
+## Industries served
+
+- Manufacturing
+- Technology
+- Healthcare
+- Banking & Finance
+- Retail
+- Infrastructure
+- Logistics
+- Energy
+- Education
+- Professional Services
+
+## Why clients consolidate
+
+### Fully Integrated Approach
+HR, admin, ESG, and digital services work in harmony — no silos, no gaps, just seamless operations across your entire business.
+
+### Compliance-First Mindset
+Every solution is built with compliance and governance at its core, ensuring your business meets all regulatory standards.
+
+### Global Expertise, Local Understanding
+We bring international best practices combined with deep knowledge of local business environments and requirements.
+
+### Sustainability at the Core (coming soon)
+ESG, EHS and sustainability will be woven through everything we do — helping you build a business that's profitable and responsible.
+
+### AI-Powered Efficiency
+We leverage the latest in automation and AI to streamline your workflows and deliver faster, smarter results.
+
+### Long-Term Partnership
+We invest in understanding your goals deeply and grow with you, providing ongoing support as your business evolves.
+
+## How engagements run
+
+01. Discover — We map the current position — people, processes, obligations and systems — and agree what success needs to look like.
+02. Design — We build a connected plan across the functions involved, with named owners, sequencing and practical milestones.
+03. Deliver — We implement alongside your teams, coordinating the moving parts and reporting progress against the plan.
+04. Improve — We review outcomes, strengthen adoption and adjust the approach as the organisation and its obligations evolve.
+
+## Frequently asked questions
+
+### Do we have to take every service?
+No. Most engagements begin with one service. The advantage of the integrated model is that when a second area comes into scope, it connects to work already in place rather than starting again with a new supplier.
+
+### How do you work alongside an existing internal team?
+We work inside your structure rather than around it. Responsibilities are agreed in writing at the start, we report into your named owner, and we transfer capability as we go so the arrangement is not dependent on us indefinitely.
+
+### Which regions can you support?
+We operate through four regional hubs — Delhi, Singapore, the United Kingdom and Dubai — covering 30 markets. Two markets, China and Brazil, are served jointly by two hubs. The regions page sets out the detail.
+
+### How is an engagement priced?
+Pricing follows the shape of the work: retained for ongoing operational responsibility such as payroll or facility management, and project-based for defined pieces such as an ESG assessment or a process automation programme.
+
+### How quickly can work start?
+A scoping conversation can usually happen within a few days. Time to start delivery depends on the service — an assessment can begin quickly, while taking over payroll or facility operations follows an agreed transition plan.
+
+### What happens to our data?
+Data is handled under the terms agreed in your contract, used only for delivering the service, and returned or deleted on request. Where AI tools are used, the permitted data and the review steps are defined before the tool goes into use.

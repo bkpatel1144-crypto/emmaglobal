@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { Accordion } from "../components/accordion";
 import { ComingSoonBadge, CtaBand, PageHero, SectionHeader } from "../components/site-shell";
-import { seo } from "../lib/seo";
+import { breadcrumbJsonLd, faqJsonLd, jsonLd, seo } from "../lib/seo";
 import { advantages, faqs, groupStats, processSteps } from "../lib/site-data";
 
 export const Route = createFileRoute("/why-us")({
@@ -13,7 +13,14 @@ export const Route = createFileRoute("/why-us")({
         "We don't offer isolated solutions — we deliver a connected ecosystem across HR, administration, ESG and digital that works together to drive real, measurable outcomes.",
       path: "/why-us",
     });
-    return { meta, links };
+    return {
+      meta,
+      links,
+      scripts: [
+        jsonLd(breadcrumbJsonLd([{ name: "Why Us", path: "/why-us" }])),
+        jsonLd(faqJsonLd(faqs)),
+      ],
+    };
   },
   component: WhyUsPage,
 });

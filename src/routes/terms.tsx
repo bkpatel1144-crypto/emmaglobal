@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { PageHero } from "../components/site-shell";
-import { seo } from "../lib/seo";
+import { breadcrumbJsonLd, jsonLd, seo } from "../lib/seo";
 import { primaryEmail, site } from "../lib/site-data";
 
 /**
@@ -16,7 +16,11 @@ export const Route = createFileRoute("/terms")({
       description: `The terms that apply to your use of the ${site.name} website.`,
       path: "/terms",
     });
-    return { meta, links };
+    return {
+      meta,
+      links,
+      scripts: [jsonLd(breadcrumbJsonLd([{ name: "Terms of Use", path: "/terms" }]))],
+    };
   },
   component: TermsPage,
 });

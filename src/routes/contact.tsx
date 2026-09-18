@@ -3,7 +3,7 @@ import { Check } from "lucide-react";
 
 import { ContactForm } from "../components/contact-form";
 import { ContactChannels, PageHero, SectionHeader } from "../components/site-shell";
-import { seo } from "../lib/seo";
+import { breadcrumbJsonLd, contactPageJsonLd, faqJsonLd, jsonLd, seo } from "../lib/seo";
 import { availableServices, faqs, regions } from "../lib/site-data";
 import { Accordion } from "../components/accordion";
 
@@ -15,7 +15,15 @@ export const Route = createFileRoute("/contact")({
         "Get in touch with Emma Global to explore how our integrated HR, administration, ESG and digital solutions can be tailored to your business.",
       path: "/contact",
     });
-    return { meta, links };
+    return {
+      meta,
+      links,
+      scripts: [
+        jsonLd(breadcrumbJsonLd([{ name: "Contact", path: "/contact" }])),
+        jsonLd(contactPageJsonLd()),
+        jsonLd(faqJsonLd(faqs)),
+      ],
+    };
   },
   component: ContactPage,
 });

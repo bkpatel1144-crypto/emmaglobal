@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 
 import { CtaBand, PageHero, SectionHeader } from "../components/site-shell";
-import { seo } from "../lib/seo";
+import { breadcrumbJsonLd, jsonLd, seo } from "../lib/seo";
 import { groupStats, leadership, principles, regions } from "../lib/site-data";
 
 export const Route = createFileRoute("/team")({
@@ -13,7 +13,11 @@ export const Route = createFileRoute("/team")({
         "Emma Global brings together specialist practices in workforce, operations, sustainability and digital, supported by regional teams across four hubs.",
       path: "/team",
     });
-    return { meta, links };
+    return {
+      meta,
+      links,
+      scripts: [jsonLd(breadcrumbJsonLd([{ name: "Our Team", path: "/team" }]))],
+    };
   },
   component: TeamPage,
 });

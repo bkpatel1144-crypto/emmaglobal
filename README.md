@@ -39,12 +39,13 @@ it overrides the Vercel default pinned in `vite.config.ts`.
 
 ### Environment variables (optional)
 
-| Variable             | Purpose                                                                                  |
-| -------------------- | ---------------------------------------------------------------------------------------- |
-| `RESEND_API_KEY`     | Enables server-side delivery of contact-form enquiries via [Resend](https://resend.com). |
-| `CONTACT_TO_EMAIL`   | Inbox that receives enquiries. Defaults to the address in `src/lib/site-data.ts`.        |
-| `CONTACT_FROM_EMAIL` | Verified sender for your Resend domain.                                                  |
-| `SITE_URL`           | Origin used when generating `sitemap.xml`. Defaults to `https://emmaglobal.com`.         |
+| Variable             | Purpose                                                                                                                                                         |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `RESEND_API_KEY`     | Enables server-side delivery of contact-form enquiries via [Resend](https://resend.com).                                                                        |
+| `CONTACT_TO_EMAIL`   | Inbox that receives enquiries. Defaults to the address in `src/lib/site-data.ts`.                                                                               |
+| `CONTACT_FROM_EMAIL` | Verified sender for your Resend domain.                                                                                                                         |
+| `VITE_SITE_URL`      | **Production origin.** Drives every canonical URL, Open Graph tag, JSON-LD entity, the sitemap, robots.txt and llms.txt. Defaults to `https://emma-global.com`. |
+| `SITE_URL`           | The same value for the SEO generator, which runs in plain Node. Set both to the same origin.                                                                    |
 
 **The form works without any of these.** With no `RESEND_API_KEY`, `submitEnquiry`
 returns `unconfigured` and the form opens the visitor's own mail client with the
@@ -61,8 +62,8 @@ These are the only items that still need real values from Emma Global:
    the row reappears on the home page, /contact and in structured data. The
    office address and both email addresses are the real values supplied by the
    client.
-2. **Production domain** — `site.url` in `src/lib/site-data.ts`, the `Sitemap:` line
-   in `public/robots.txt`, and `SITE_URL` if it differs from `emmaglobal.com`.
+2. **Production domain** — set `VITE_SITE_URL` and `SITE_URL` in Vercel. Nothing is
+   hardcoded; the default is `https://emma-global.com`.
 3. **Social profiles** — `contact.linkedin` and `contact.twitter` are best guesses.
 4. **Legal pages** — `/privacy` and `/terms` are drafts written against what this
    site actually does. They need review by Emma Global's legal adviser, and the
@@ -130,6 +131,37 @@ design: the industry cards lift with shadow instead of `translateY` (a hover
 transform on the hover target makes `:hover` strobe at the edges), and the hub
 pulse ring is excluded from hit-testing so its expanding radius cannot retrigger
 hover. Change the reference HTML or that script, never the CSS.
+
+### SEO
+
+Everything below is generated from `src/lib/site-data.ts` by
+`scripts/generate-seo.mjs`, which runs as part of `npm run build`. None of these
+files are edited by hand, so they cannot drift from the routes and the copy:
+
+| File                   | Purpose                                                                            |
+| ---------------------- | ---------------------------------------------------------------------------------- |
+| `public/sitemap.xml`   | Indexable pages only. A service flagged `comingSoon` is excluded automatically.    |
+| `public/robots.txt`    | Crawl policy, sitemap pointer, and an explicit allow for AI assistant crawlers.    |
+| `public/llms.txt`      | Concise site map for AI assistants, per [llmstxt.org](https://llmstxt.org).        |
+| `public/llms-full.txt` | Substantive copy from every page in one file, for assistants that want the detail. |
+
+Structured data lives in `src/lib/seo.ts` and is attached per route:
+
+- **Organization** and **WebSite** on every page, from the root route
+- **BreadcrumbList** on every page below the home page. This is what gives Google
+  the hierarchy it uses to build sitelinks, so keep it on any new page.
+- **Service** and **OfferCatalog** on each service detail page
+- **FAQPage** wherever an accordion is rendered
+- **ContactPage** on /contact
+
+A layout route must never define `head()`. Its head is merged into every child,
+which is how `/services` came to emit a second, wrong canonical on each service
+detail page. `services.tsx` is now a bare layout and `services.index.tsx` owns the
+listing page metadata.
+
+Also shipped: `public/.well-known/security.txt` (RFC 9116 — refresh its `Expires`
+date before it lapses) and a www to apex redirect in `vercel.json`, so no page is
+ever indexed under two hostnames.
 
 ### Brand tokens
 

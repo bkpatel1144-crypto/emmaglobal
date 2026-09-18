@@ -11,7 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import { SiteFooter, SiteHeader } from "../components/site-shell";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { organisationJsonLd } from "../lib/seo";
+import { jsonLd, organisationJsonLd, websiteJsonLd } from "../lib/seo";
 import { site } from "../lib/site-data";
 import appCss from "../styles.css?url";
 
@@ -98,12 +98,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" },
       { rel: "manifest", href: "/site.webmanifest" },
     ],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify(organisationJsonLd()),
-      },
-    ],
+    scripts: [jsonLd(organisationJsonLd()), jsonLd(websiteJsonLd())],
   }),
   shellComponent: RootShell,
   component: RootComponent,

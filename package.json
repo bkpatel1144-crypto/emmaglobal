@@ -5,13 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "node scripts/generate-sitemap.mjs && vite build",
-    "build:dev": "node scripts/generate-sitemap.mjs && vite build --mode development",
+    "build": "node scripts/generate-seo.mjs && vite build",
+    "build:dev": "node scripts/generate-seo.mjs && vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "sitemap": "node scripts/generate-sitemap.mjs",
-    "build:regions-css": "node scripts/build-regions-css.mjs"
+    "build:regions-css": "node scripts/build-regions-css.mjs",
+    "seo": "node scripts/generate-seo.mjs"
   },
   "overrides": {
     "rolldown": "1.2.1"

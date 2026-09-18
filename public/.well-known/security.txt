@@ -1,0 +1,9 @@
+# Emma Global — how to report a security issue.
+# Format: https://www.rfc-editor.org/rfc/rfc9116
+
+Contact: mailto:Puwar.R@emma-global.com
+Preferred-Languages: en
+Canonical: https://emma-global.com/.well-known/security.txt
+
+# Update this date before it passes; expired files are treated as stale.
+Expires: 2027-09-18T00:00:00.000Z

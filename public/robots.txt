@@ -1,4 +1,24 @@
+# Emma Global — https://emma-global.com
+
 User-agent: *
 Allow: /
 
-Sitemap: https://emmaglobal.com/sitemap.xml
+# Build output and asset internals are useless to crawlers.
+Disallow: /_build/
+Disallow: /__l5e/
+
+# AI assistants: the site is open to you. /llms.txt is a concise map of it and
+# /llms-full.txt carries the full text, both kept in sync with the site.
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-User
+User-agent: Claude-SearchBot
+User-agent: PerplexityBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://emma-global.com/sitemap.xml

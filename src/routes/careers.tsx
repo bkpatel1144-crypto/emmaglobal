@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, Briefcase, MapPin } from "lucide-react";
 
 import { CtaBand, PageHero, SectionHeader } from "../components/site-shell";
-import { seo } from "../lib/seo";
+import { breadcrumbJsonLd, jsonLd, seo } from "../lib/seo";
 import { benefits, primaryEmail, processSteps, roles } from "../lib/site-data";
 
 export const Route = createFileRoute("/careers")({
@@ -13,7 +13,11 @@ export const Route = createFileRoute("/careers")({
         "Join Emma Global. Open roles across HR, ESG advisory, administration and digital, based in Delhi, Singapore, Dubai and the United Kingdom.",
       path: "/careers",
     });
-    return { meta, links };
+    return {
+      meta,
+      links,
+      scripts: [jsonLd(breadcrumbJsonLd([{ name: "Careers", path: "/careers" }]))],
+    };
   },
   component: CareersPage,
 });

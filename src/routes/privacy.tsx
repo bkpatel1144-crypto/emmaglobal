@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { PageHero } from "../components/site-shell";
-import { seo } from "../lib/seo";
+import { breadcrumbJsonLd, jsonLd, seo } from "../lib/seo";
 import { addressOneLine, primaryEmail, site } from "../lib/site-data";
 
 /**
@@ -17,7 +17,11 @@ export const Route = createFileRoute("/privacy")({
       description: `How ${site.name} collects, uses and protects personal information submitted through this website.`,
       path: "/privacy",
     });
-    return { meta, links };
+    return {
+      meta,
+      links,
+      scripts: [jsonLd(breadcrumbJsonLd([{ name: "Privacy Policy", path: "/privacy" }]))],
+    };
   },
   component: PrivacyPage,
 });

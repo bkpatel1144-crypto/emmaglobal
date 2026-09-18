@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Check } from "lucide-react";
 
 import { CtaBand, PageHero, SectionHeader } from "../components/site-shell";
-import { seo } from "../lib/seo";
+import { breadcrumbJsonLd, jsonLd, seo } from "../lib/seo";
 import { caseStudies, processSteps } from "../lib/site-data";
 
 export const Route = createFileRoute("/case-studies")({
@@ -13,7 +13,11 @@ export const Route = createFileRoute("/case-studies")({
         "Representative examples of Emma Global engagements across manufacturing, textiles, professional services and hospitality — the problem, the approach and what changed.",
       path: "/case-studies",
     });
-    return { meta, links };
+    return {
+      meta,
+      links,
+      scripts: [jsonLd(breadcrumbJsonLd([{ name: "Case Studies", path: "/case-studies" }]))],
+    };
   },
   component: CaseStudiesPage,
 });
