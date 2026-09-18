@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
-import { primaryEmail, serviceOptions } from "./site-data";
+import { contact, primaryEmail, serviceOptions, site } from "./site-data";
 
 export const enquirySchema = z.object({
   firstName: z.string().trim().min(1, "Enter your first name").max(80),
@@ -24,7 +24,7 @@ export type EnquiryInput = z.infer<typeof enquirySchema>;
 
 export type EnquiryResult =
   | { status: "sent" }
-  /** No mail provider configured — the form falls back to the visitor's mail client. */
+  /** No SMTP credentials configured — the form falls back to the mail client. */
   | { status: "unconfigured" }
   | { status: "error"; message: string };
 
@@ -34,13 +34,21 @@ const escapeHtml = (value: string) =>
     (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!,
   );
 
+/** Reads an env var without tripping `noPropertyAccessFromIndexSignature`. */
+const env = (key: string) => (process.env as Record<string, string | undefined>)[key];
+
 /**
- * Delivers a contact enquiry.
+ * Delivers a contact enquiry over SMTP with Nodemailer.
  *
- * Set `RESEND_API_KEY` (and optionally `CONTACT_TO_EMAIL` / `CONTACT_FROM_EMAIL`)
- * in the Vercel project to send mail. Without those variables the function
- * reports `unconfigured` and the form opens the visitor's mail client instead,
- * so the site is never broken by a missing secret. See `.env.example`.
+ * This handler only ever runs on the server — `createServerFn` compiles the body
+ * out of the client bundle entirely — so the SMTP credentials are never exposed
+ * to the browser and no separate backend service is needed.
+ *
+ * Configure in Vercel: SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, and
+ * optionally CONTACT_TO_EMAIL / CONTACT_FROM_EMAIL. Without SMTP_HOST the
+ * function reports `unconfigured` and the form hands the enquiry to the
+ * visitor's own mail client, so a missing secret can never break the site.
+ * See `.env.example`.
  */
 export const submitEnquiry = createServerFn({ method: "POST" })
   .inputValidator(enquirySchema)
@@ -48,11 +56,17 @@ export const submitEnquiry = createServerFn({ method: "POST" })
     // Silently accept honeypot hits so bots get no signal.
     if (data.website) return { status: "sent" };
 
-    const apiKey = process.env["RESEND_API_KEY"];
-    if (!apiKey) return { status: "unconfigured" };
+    const host = env("SMTP_HOST");
+    const user = env("SMTP_USER");
+    // Gmail shows app passwords as four groups of four ("abcd efgh ijkl mnop")
+    // and they are almost always pasted that way. The spaces are display-only —
+    // leaving them in produces a confusing "invalid credentials" failure.
+    const pass = env("SMTP_PASS")?.replace(/\s+/g, "");
+    if (!host || !user || !pass) return { status: "unconfigured" };
 
-    const to = process.env["CONTACT_TO_EMAIL"] ?? primaryEmail;
-    const from = process.env["CONTACT_FROM_EMAIL"] ?? "Emma Global Website <onboarding@resend.dev>";
+    const port = Number(env("SMTP_PORT") ?? 587);
+    const to = env("CONTACT_TO_EMAIL") ?? contact.emails.join(", ");
+    const from = env("CONTACT_FROM_EMAIL") ?? `"${site.name} Website" <${user}>`;
     const name = `${data.firstName} ${data.lastName}`;
 
     const rows: [string, string][] = [
@@ -69,36 +83,41 @@ ${rows.map(([k, v]) => `<tr><td><strong>${escapeHtml(k)}</strong></td><td>${esca
 <h3>Message</h3>
 <p style="font-family:sans-serif;font-size:14px;white-space:pre-wrap">${escapeHtml(data.message)}</p>`;
 
+    const text = [...rows.map(([k, v]) => `${k}: ${v}`), "", "Message:", data.message].join("\n");
+
     try {
-      const response = await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-        body: JSON.stringify({
-          from,
-          to: [to],
-          reply_to: data.email,
-          subject: `Website enquiry — ${data.service} — ${name}`,
-          html,
-        }),
+      // Imported inside the handler so the dependency is only ever pulled into
+      // the server bundle.
+      const nodemailer = (await import("nodemailer")).default;
+
+      const transport = nodemailer.createTransport({
+        host,
+        port,
+        // 465 is implicit TLS; 587 and 25 start plaintext and upgrade via STARTTLS.
+        secure: port === 465,
+        auth: { user, pass },
+        // Serverless invocations are short-lived, so fail fast rather than
+        // holding the request open when the mail host is unreachable.
+        connectionTimeout: 10_000,
+        greetingTimeout: 10_000,
+        socketTimeout: 20_000,
       });
 
-      if (!response.ok) {
-        console.error(
-          "Enquiry delivery failed",
-          response.status,
-          await response.text().catch(() => ""),
-        );
-        return {
-          status: "error",
-          message: "We couldn't send that just now. Please email us directly.",
-        };
-      }
+      await transport.sendMail({
+        from,
+        to,
+        replyTo: `"${name}" <${data.email}>`,
+        subject: `Website enquiry — ${data.service} — ${name}`,
+        text,
+        html,
+      });
+
       return { status: "sent" };
     } catch (error) {
-      console.error("Enquiry delivery threw", error);
+      console.error("Enquiry delivery failed", error);
       return {
         status: "error",
-        message: "We couldn't send that just now. Please email us directly.",
+        message: `We couldn't send that just now. Please email us directly at ${primaryEmail}.`,
       };
     }
   });

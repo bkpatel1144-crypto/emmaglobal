@@ -37,15 +37,44 @@ hashed assets and media.
 To build for a different platform, set `NITRO_PRESET` (e.g. `NITRO_PRESET=cloudflare-module`);
 it overrides the Vercel default pinned in `vite.config.ts`.
 
-### Environment variables (optional)
+### Environment variables
 
 | Variable             | Purpose                                                                                                                                                         |
 | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `RESEND_API_KEY`     | Enables server-side delivery of contact-form enquiries via [Resend](https://resend.com).                                                                        |
-| `CONTACT_TO_EMAIL`   | Inbox that receives enquiries. Defaults to the address in `src/lib/site-data.ts`.                                                                               |
-| `CONTACT_FROM_EMAIL` | Verified sender for your Resend domain.                                                                                                                         |
 | `VITE_SITE_URL`      | **Production origin.** Drives every canonical URL, Open Graph tag, JSON-LD entity, the sitemap, robots.txt and llms.txt. Defaults to `https://emma-global.com`. |
-| `SITE_URL`           | The same value for the SEO generator, which runs in plain Node. Set both to the same origin.                                                                    |
+| `SITE_URL`           | The same value for the SEO generator, which runs in plain Node. Set both.                                                                                       |
+| `SMTP_HOST`          | Mail host, e.g. `smtp.gmail.com`. **Enables contact-form delivery.**                                                                                            |
+| `SMTP_PORT`          | `465` for implicit TLS, `587` for STARTTLS. Defaults to `587`.                                                                                                  |
+| `SMTP_USER`          | SMTP username — usually the full mailbox address.                                                                                                               |
+| `SMTP_PASS`          | SMTP password. For Gmail this is an **App Password**, not the account password.                                                                                 |
+| `CONTACT_TO_EMAIL`   | Where enquiries land. Defaults to both addresses in `src/lib/site-data.ts`.                                                                                     |
+| `CONTACT_FROM_EMAIL` | Envelope sender. Must be an address the SMTP account may send as.                                                                                               |
+
+**The form works without any SMTP values.** With `SMTP_HOST`, `SMTP_USER` or
+`SMTP_PASS` missing, `submitEnquiry` returns `unconfigured` and the form opens the
+visitor's own mail client with the enquiry pre-filled, so a missing secret can never
+break the site. See `.env.example`.
+
+#### How the contact form sends mail
+
+There is no separate backend. `src/lib/enquiry.ts` defines a TanStack Start
+**server function** — its handler is compiled out of the client bundle entirely and
+runs only on the server, so SMTP credentials never reach the browser. Nodemailer is
+imported inside the handler so it stays out of the client build.
+
+For Gmail or Google Workspace: enable 2-Step Verification, then create an
+[App Password](https://myaccount.google.com/apppasswords) and use that as `SMTP_PASS`.
+Google shows it as four groups of four characters; the spaces are display-only and
+the handler strips them, so pasting it either way works.
+
+`.env` and `.env.*` are gitignored. Never commit real credentials — `.env.example`
+is the tracked template and contains no secrets.
+-------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `RESEND_API_KEY` | Enables server-side delivery of contact-form enquiries via [Resend](https://resend.com). |
+| `CONTACT_TO_EMAIL` | Inbox that receives enquiries. Defaults to the address in `src/lib/site-data.ts`. |
+| `CONTACT_FROM_EMAIL` | Verified sender for your Resend domain. |
+| `VITE_SITE_URL` | **Production origin.** Drives every canonical URL, Open Graph tag, JSON-LD entity, the sitemap, robots.txt and llms.txt. Defaults to `https://emma-global.com`. |
+| `SITE_URL` | The same value for the SEO generator, which runs in plain Node. Set both to the same origin. |
 
 **The form works without any of these.** With no `RESEND_API_KEY`, `submitEnquiry`
 returns `unconfigured` and the form opens the visitor's own mail client with the
