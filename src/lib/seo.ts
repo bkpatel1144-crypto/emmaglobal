@@ -14,6 +14,26 @@ type ScriptTag = { type: string; children: string };
 /** Absolute URL for a site-relative path. */
 export const absolute = (path: string) => `${site.url}${path === "/" ? "" : path}`;
 
+const viteEnv = (key: string) =>
+  (import.meta as unknown as { env?: Record<string, string | undefined> }).env?.[key];
+
+/**
+ * Search-console ownership tags.
+ *
+ * Google and Bing each hand you a token to prove you own the domain. Setting
+ * `VITE_GOOGLE_SITE_VERIFICATION` / `VITE_BING_SITE_VERIFICATION` in Vercel
+ * renders the tag on every page, so verifying needs no code change. Both are
+ * omitted entirely when unset.
+ */
+export function verificationMeta(): MetaTag[] {
+  const google = viteEnv("VITE_GOOGLE_SITE_VERIFICATION");
+  const bing = viteEnv("VITE_BING_SITE_VERIFICATION");
+  return [
+    ...(google ? [{ name: "google-site-verification", content: google }] : []),
+    ...(bing ? [{ name: "msvalidate.01", content: bing }] : []),
+  ];
+}
+
 /** Wraps an object as a JSON-LD script descriptor for a route's `head()`. */
 export const jsonLd = (data: unknown): ScriptTag => ({
   type: "application/ld+json",

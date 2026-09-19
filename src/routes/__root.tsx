@@ -11,7 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import { SiteFooter, SiteHeader } from "../components/site-shell";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { jsonLd, organisationJsonLd, websiteJsonLd } from "../lib/seo";
+import { jsonLd, organisationJsonLd, verificationMeta, websiteJsonLd } from "../lib/seo";
 import { site } from "../lib/site-data";
 import appCss from "../styles.css?url";
 
@@ -82,6 +82,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "author", content: site.name },
       { name: "theme-color", content: "#0d1b2a" },
       { name: "format-detection", content: "telephone=no" },
+      // Search Console / Bing Webmaster ownership tags. Omitted unless the
+      // corresponding VITE_* variable is set, so verifying needs no code change.
+      ...verificationMeta(),
     ],
     links: [
       { rel: "stylesheet", href: appCss },
