@@ -178,40 +178,43 @@ export const services: Service[] = [
     items: [
       {
         label: "Comprehensive Talent Acquisition for Skilled & Professional Workforce",
-        video: "/media/hr-talent-acquisition.mp4",
+        video: "/media/services/hr-talent-acquisition.mp4",
         detail:
           "Sourcing, assessment and onboarding for technical, skilled and professional roles, run against a defined workforce plan rather than a stream of one-off vacancies.",
       },
       {
         label: "Payroll management",
-        video: "/media/hr-payroll-management.mp4",
+        video: "/media/services/hr-payroll-management.mp4",
         detail:
           "End-to-end payroll processing, statutory deductions and filings, with records kept in a state where an audit needs no reconstruction.",
       },
       {
         label: "Employee engagement",
-        video: "/media/hr-employee-engagement.mp4",
+        video: "/media/services/hr-employee-engagement.mp4",
         detail:
           "Engagement programmes built on what the workforce data actually shows, with follow-through tracked rather than announced once and forgotten.",
       },
       {
         label: "Compliance & policies",
-        video: "/media/hr-compliance-policies.mp4",
+        video: "/media/services/hr-compliance-policies.mp4",
         detail:
           "Employment policy frameworks kept current with the law and, just as importantly, with what happens on site.",
       },
       {
         label: "Training & development",
+        video: "/media/services/hr-training-development.mp4",
         detail:
           "Training needs analysis, programme design and delivery, aimed at the capability gaps that limit the business today.",
       },
       {
         label: "Employee Workplace Survey",
+        video: "/media/services/hr-workplace-survey.mp4",
         detail:
           "Structured surveys with honest reporting and a defined action cycle, so results lead somewhere.",
       },
       {
         label: "Organization development",
+        video: "/media/services/hr-organisation-development.mp4",
         detail:
           "Structure, role design and change support for teams that have outgrown the way they were originally set up.",
       },
@@ -289,31 +292,37 @@ export const services: Service[] = [
     items: [
       {
         label: "Office & facility management",
+        video: "/media/services/admin-office-facility-management.mp4",
         detail:
           "Day-to-day management of offices and facilities across single or multiple sites, with named ownership for every recurring task.",
       },
       {
         label: "Vendor coordination",
+        video: "/media/services/admin-vendor-coordination.mp4",
         detail:
           "Vendor selection, contracting and performance monitoring against agreed service levels rather than goodwill.",
       },
       {
         label: "Documentation & compliance",
+        video: "/media/services/admin-documentation-compliance.mp4",
         detail:
           "Document control, renewal calendars and compliance registers kept current, so nothing lapses unnoticed.",
       },
       {
         label: "Operational support",
+        video: "/media/services/admin-operational-support.mp4",
         detail:
           "The recurring administrative work that otherwise consumes senior people's time, handled to a defined calendar.",
       },
       {
         label: "Catering service",
+        video: "/media/services/admin-catering-service.mp4",
         detail:
           "Workplace catering managed as a measured service, with quality and cost both visible.",
       },
       {
         label: "Cab service",
+        video: "/media/services/admin-cab-service.mp4",
         detail:
           "Employee transport coordination covering routing, safety compliance and cost tracking.",
       },

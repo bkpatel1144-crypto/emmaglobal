@@ -211,11 +211,27 @@ which is generated from it.
 
 ### Service videos
 
-Four clips were supplied by the client and are mapped to four specific items
-under HR Solutions in `site-data.ts`. Only items with a `video` are expandable;
-the rest are plain rows. There are no "coming soon" placeholders anywhere, and
-no clip is reused across items — to add one, drop the file in `public/media/`
-and set `video` on that item.
+Every HR (7) and Administration (6) item has a client-supplied clip in
+`public/media/services/`, mapped in `site-data.ts`. Digital & AI has none, so its
+items render as plain rows. There are no placeholders and no clip is reused.
+
+**Every clip must be web-optimised before it goes in.** Exports from most video
+tools put the MP4 index (`moov`) at the end of the file, so the browser has to
+download the whole clip before the first frame appears. Remux losslessly with:
+
+```bash
+ffmpeg -i input.mp4 -c copy -movflags +faststart output.mp4
+```
+
+This changes nothing visible — it only moves the index to the front. The clips
+also need to be H.264 + AAC; HEVC plays in Safari but fails in Chrome on many
+devices. The supplied Catering and Cab clips ran at roughly twice the bitrate of
+the rest, so those two were re-encoded to match (SSIM 0.988 / 0.991 against the
+originals, i.e. visually identical).
+
+All videos use `preload="none"`, so opening a page downloads no video at all —
+a clip loads only when someone plays it. Give a replaced clip a **new filename**:
+reusing a name risks browsers and the CDN serving the old cached copy.
 
 ### Header behaviour
 
