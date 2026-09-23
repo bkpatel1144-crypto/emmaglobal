@@ -111,6 +111,26 @@ export const site = {
   locale: "en_GB",
 } as const;
 
+/* ── COMPANY PROFILE FILM ─────────────────────────────────────────────────
+   The client-supplied one-minute profile film, shown on /about. The measured
+   values (duration, dimensions) are also what the VideoObject structured data
+   reports, so they live here rather than being repeated in seo.ts.
+   ------------------------------------------------------------------------ */
+export const profileVideo = {
+  src: "/media/emma-global-company-profile.mp4",
+  poster: "/media/emma-global-company-profile-poster.jpg",
+  eyebrow: "Company profile",
+  title: "Who we are, in one minute",
+  text: "A short film covering how Emma Global works across workforce, administration and digital delivery — and what an integrated partner looks like in practice.",
+  caption: "Emma Global company profile — 1:01",
+  /** ISO 8601, for VideoObject structured data. */
+  duration: "PT1M1S",
+  width: 1920,
+  height: 1080,
+  /** The date the film was supplied and first published. */
+  uploadDate: "2026-09-23",
+} as const;
+
 export type ContactChannel = {
   icon: LucideIcon;
   label: string;
@@ -499,23 +519,33 @@ export const services: Service[] = [
     items: [
       {
         label: "Process automation",
+        video: "/media/services/digital-process-automation.mp4",
         detail:
           "Processes mapped and simplified before anything is automated, so the inefficiency is removed rather than accelerated.",
       },
       {
         label: "AI-powered analytics",
+        video: "/media/services/digital-ai-powered-analytics.mp4",
         detail:
           "Reporting built around the decisions that need better information, instead of dashboards nobody opens.",
       },
       {
         label: "Digital transformation",
+        video: "/media/services/digital-transformation.mp4",
         detail:
           "Phased roadmaps with each stage delivering something usable, rather than a single distant cutover.",
       },
       {
         label: "Workflow optimization",
+        video: "/media/services/digital-workflow-optimization.mp4",
         detail:
           "Handoffs, approvals and duplicated data entry removed across functions and systems.",
+      },
+      {
+        label: "Video production",
+        video: "/media/services/digital-video-production.mp4",
+        detail:
+          "Corporate video produced end to end — brief, script, shoot and edit — for training, recruitment, internal communication and client-facing material.",
       },
     ],
     eyebrow: "Intelligent transformation",

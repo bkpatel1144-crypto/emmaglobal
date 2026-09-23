@@ -1025,3 +1025,119 @@
 .card.is-soon:hover .card-icon {
   transform: none;
 }
+
+/* ── COMPANY PROFILE FILM (/about) ──
+   Sits on the dark section, so the frame reads as a screen rather than a card.
+   The poster is a still from the film, letterboxed into 16:9. */
+.profile-video {
+  margin: 0 auto;
+  max-width: 1000px;
+}
+.profile-video-box {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.42);
+}
+.profile-video-box video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  /* The poster is 1920x1080, same as the film, so it fills without cropping. */
+  object-fit: cover;
+}
+
+/* Overlay play control. Removed from the DOM once playback starts, which
+   uncovers the native controls. */
+.profile-video-play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  border: 0;
+  cursor: pointer;
+  color: #fff;
+  /* Darkens the poster just enough for the label to clear AA over any frame. */
+  background: linear-gradient(
+    180deg,
+    rgba(13, 27, 42, 0.18) 0%,
+    rgba(13, 27, 42, 0.44) 100%
+  );
+  transition: background 0.25s ease;
+}
+.profile-video-play:hover,
+.profile-video-play:focus-visible {
+  background: linear-gradient(
+    180deg,
+    rgba(13, 27, 42, 0.26) 0%,
+    rgba(13, 27, 42, 0.52) 100%
+  );
+}
+.profile-video-play-icon {
+  display: grid;
+  place-items: center;
+  width: clamp(62px, 9vw, 84px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e3583a 0%, #d94f1e 48%, #c4400f 100%);
+  box-shadow: 0 14px 34px rgba(196, 64, 15, 0.46);
+  /* Only the icon moves — never the element that owns the :hover, which would
+     make the pointer leave and re-enter and read as flicker. */
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+.profile-video-play:hover .profile-video-play-icon,
+.profile-video-play:focus-visible .profile-video-play-icon {
+  transform: scale(1.08);
+  box-shadow: 0 18px 44px rgba(196, 64, 15, 0.58);
+}
+.profile-video-play-icon svg {
+  width: 40%;
+  height: 40%;
+  fill: #fff;
+  stroke: #fff;
+  /* Optically centres the triangle inside the circle. */
+  margin-left: 6%;
+}
+.profile-video-play-label {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+}
+.profile-video figcaption {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--on-dark-soft);
+}
+@media (max-width: 560px) {
+  .profile-video-box {
+    border-radius: 14px;
+  }
+  .profile-video-play {
+    gap: 12px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .profile-video-play,
+  .profile-video-play-icon {
+    transition: none;
+  }
+  .profile-video-play:hover .profile-video-play-icon,
+  .profile-video-play:focus-visible .profile-video-play-icon {
+    transform: none;
+  }
+}

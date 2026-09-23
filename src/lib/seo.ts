@@ -6,7 +6,14 @@
    Graph, JSON-LD, the sitemap, robots.txt and llms.txt together.
    ========================================================================== */
 
-import { addressOneLine, contact, primaryEmail, site, type Service } from "./site-data";
+import {
+  addressOneLine,
+  contact,
+  primaryEmail,
+  profileVideo,
+  site,
+  type Service,
+} from "./site-data";
 
 type MetaTag = Record<string, string>;
 type ScriptTag = { type: string; children: string };
@@ -203,6 +210,32 @@ export function faqJsonLd(faqs: readonly { q: string; a: string }[]) {
       name: faq.q,
       acceptedAnswer: { "@type": "Answer", text: faq.a },
     })),
+  };
+}
+
+/**
+ * The company profile film on /about.
+ *
+ * Google needs `thumbnailUrl`, `uploadDate`, `name` and `description` before it
+ * will consider a video result, and `duration` is what produces the runtime
+ * badge. `contentUrl` points at the MP4 itself, which is directly playable.
+ */
+export function videoObjectJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name: `${site.name} — ${profileVideo.title}`,
+    description: profileVideo.text,
+    thumbnailUrl: [`${site.url}${profileVideo.poster}`],
+    uploadDate: profileVideo.uploadDate,
+    duration: profileVideo.duration,
+    contentUrl: `${site.url}${profileVideo.src}`,
+    width: profileVideo.width,
+    height: profileVideo.height,
+    url: absolute("/about"),
+    inLanguage: "en-GB",
+    isFamilyFriendly: true,
+    publisher: { "@id": `${site.url}/#organisation` },
   };
 }
 

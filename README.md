@@ -31,8 +31,9 @@ layout into `.vercel/output`, so Vercel needs no framework preset.
 3. Deploy. Nothing else is required for the site to work.
 
 `vercel.json` also sets security headers (HSTS, `X-Content-Type-Options`,
-`Referrer-Policy`, `Permissions-Policy`) and long-lived immutable caching for
-hashed assets and media.
+`Referrer-Policy`, `Permissions-Policy`), long-lived immutable caching for hashed
+build assets and images, and a www to apex redirect. Videos are deliberately left
+revalidating — see [Service videos](#service-videos).
 
 To build for a different platform, set `NITRO_PRESET` (e.g. `NITRO_PRESET=cloudflare-module`);
 it overrides the Vercel default pinned in `vite.config.ts`.
@@ -69,16 +70,6 @@ the handler strips them, so pasting it either way works.
 
 `.env` and `.env.*` are gitignored. Never commit real credentials — `.env.example`
 is the tracked template and contains no secrets.
--------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `RESEND_API_KEY` | Enables server-side delivery of contact-form enquiries via [Resend](https://resend.com). |
-| `CONTACT_TO_EMAIL` | Inbox that receives enquiries. Defaults to the address in `src/lib/site-data.ts`. |
-| `CONTACT_FROM_EMAIL` | Verified sender for your Resend domain. |
-| `VITE_SITE_URL` | **Production origin.** Drives every canonical URL, Open Graph tag, JSON-LD entity, the sitemap, robots.txt and llms.txt. Defaults to `https://emma-global.com`. |
-| `SITE_URL` | The same value for the SEO generator, which runs in plain Node. Set both to the same origin. |
-
-**The form works without any of these.** With no `RESEND_API_KEY`, `submitEnquiry`
-returns `unconfigured` and the form opens the visitor's own mail client with the
-enquiry pre-filled, so a missing secret can never break the site. See `.env.example`.
 
 ---
 
@@ -100,8 +91,14 @@ These are the only items that still need real values from Emma Global:
 5. **Case studies** — `caseStudies` in `src/lib/site-data.ts` are representative
    examples, labelled as such on the page. Replace them with published references
    when they are available.
-6. **Contact form delivery** — set `RESEND_API_KEY` (see above), otherwise the form
-   falls back to the visitor's mail client.
+6. **Contact form delivery** — set `SMTP_HOST`, `SMTP_USER` and `SMTP_PASS` in
+   Vercel (see above), otherwise the form falls back to the visitor's mail
+   client. Set `CONTACT_TO_EMAIL` to the two client addresses, and prefer a
+   mailbox on the domain over a gmail.com sender so replies and SPF line up.
+7. **Video production copy** — the `detail` line on the new Digital & AI
+   "Video production" item is drafted, not client-supplied. It needs sign-off,
+   and the service's `summary`, `deliverables` and `body` still make no mention
+   of video production.
 
 ---
 
@@ -182,6 +179,7 @@ Structured data lives in `src/lib/seo.ts` and is attached per route:
 - **Service** and **OfferCatalog** on each service detail page
 - **FAQPage** wherever an accordion is rendered
 - **ContactPage** on /contact
+- **VideoObject** on /about, for the company profile film
 
 A layout route must never define `head()`. Its head is merged into every child,
 which is how `/services` came to emit a second, wrong canonical on each service
@@ -211,9 +209,9 @@ which is generated from it.
 
 ### Service videos
 
-Every HR (7) and Administration (6) item has a client-supplied clip in
-`public/media/services/`, mapped in `site-data.ts`. Digital & AI has none, so its
-items render as plain rows. There are no placeholders and no clip is reused.
+All 18 service items — HR (7), Administration (6) and Digital & AI (5) — have a
+client-supplied clip in `public/media/services/`, mapped in `site-data.ts`. There
+are no placeholders and no clip is reused.
 
 **Every clip must be web-optimised before it goes in.** Exports from most video
 tools put the MP4 index (`moov`) at the end of the file, so the browser has to
@@ -225,13 +223,49 @@ ffmpeg -i input.mp4 -c copy -movflags +faststart output.mp4
 
 This changes nothing visible — it only moves the index to the front. The clips
 also need to be H.264 + AAC; HEVC plays in Safari but fails in Chrome on many
-devices. The supplied Catering and Cab clips ran at roughly twice the bitrate of
-the rest, so those two were re-encoded to match (SSIM 0.988 / 0.991 against the
-originals, i.e. visually identical).
+devices. Several supplied clips ran at roughly twice the bitrate of the rest, so
+those were re-encoded to match:
+
+```bash
+ffmpeg -i input.mp4 -c:v libx264 -preset slow -crf 21 -profile:v high \
+  -pix_fmt yuv420p -c:a copy -movflags +faststart output.mp4
+```
+
+Check the result against the original with SSIM before shipping it — anything
+above ~0.98 is visually identical:
+
+```bash
+ffmpeg -i output.mp4 -i input.mp4 -lavfi ssim -f null -
+```
 
 All videos use `preload="none"`, so opening a page downloads no video at all —
-a clip loads only when someone plays it. Give a replaced clip a **new filename**:
-reusing a name risks browsers and the CDN serving the old cached copy.
+a clip loads only when someone plays it.
+
+#### The company profile film
+
+`/about` carries the one-minute profile film, defined by `profileVideo` in
+`site-data.ts` and rendered by `src/components/profile-video.tsx`. Unlike the
+square service clips it is 16:9 and 1080p, so it gets a poster frame
+(`public/media/emma-global-company-profile-poster.jpg`, cut from the film itself)
+and a branded play overlay. Two things there are deliberate:
+
+- The poster is taken from a frame with **no burned-in text**. The film's own
+  title cards sit dead centre, which is exactly where the play control lands.
+- `controls` is withheld until playback starts. Chrome paints the native control
+  bar above absolutely-positioned siblings, so leaving it on puts a scrubber
+  across the poster with nothing to scrub.
+
+The film also emits **VideoObject** structured data (see `videoObjectJsonLd` in
+`seo.ts`), which is what lets it appear as a video result with a duration badge.
+`duration`, `width` and `height` there are read from `profileVideo`, so replacing
+the film means updating those values to match the new file.
+
+Replacing a clip **in place, under the same filename, is safe**. No rule in
+`vercel.json` matches `.mp4`, so production serves the clips with
+`Cache-Control: public, max-age=0, must-revalidate` (verified against the live
+site) and a replacement is revalidated on the next request. An earlier version of
+this file said to rename replaced clips; that was over-cautious. Do not add an
+`immutable` cache rule for `.mp4` without switching to hashed filenames.
 
 ### Header behaviour
 

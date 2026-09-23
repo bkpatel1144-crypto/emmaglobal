@@ -2,7 +2,7 @@
 
 > Emma Global delivers integrated solutions across workforce management, administration, ESG, and digital innovation — helping businesses scale efficiently and sustainably.
 
-Source: https://emma-global.com · Generated 2026-09-21
+Source: https://emma-global.com · Generated 2026-09-23
 This file is produced from the site's own content, so it always matches what is published.
 
 ## Overview
@@ -129,6 +129,7 @@ Included:
 - AI-powered analytics: Reporting built around the decisions that need better information, instead of dashboards nobody opens.
 - Digital transformation: Phased roadmaps with each stage delivering something usable, rather than a single distant cutover.
 - Workflow optimization: Handoffs, approvals and duplicated data entry removed across functions and systems.
+- Video production: Corporate video produced end to end — brief, script, shoot and edit — for training, recruitment, internal communication and client-facing material.
 
 Questions:
 - We automated a process and saw no benefit. What went wrong?

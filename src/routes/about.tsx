@@ -1,9 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 
+import { ProfileVideo } from "../components/profile-video";
 import { ComingSoonBadge, CtaBand, PageHero, SectionHeader } from "../components/site-shell";
-import { breadcrumbJsonLd, jsonLd, seo } from "../lib/seo";
-import { groupStats, pillars, principles, processSteps, regions } from "../lib/site-data";
+import { breadcrumbJsonLd, jsonLd, seo, videoObjectJsonLd } from "../lib/seo";
+import {
+  groupStats,
+  pillars,
+  principles,
+  processSteps,
+  profileVideo,
+  regions,
+} from "../lib/site-data";
 
 export const Route = createFileRoute("/about")({
   head: () => {
@@ -16,7 +24,10 @@ export const Route = createFileRoute("/about")({
     return {
       meta,
       links,
-      scripts: [jsonLd(breadcrumbJsonLd([{ name: "About", path: "/about" }]))],
+      scripts: [
+        jsonLd(breadcrumbJsonLd([{ name: "About", path: "/about" }])),
+        jsonLd(videoObjectJsonLd()),
+      ],
     };
   },
   component: AboutPage,
@@ -69,6 +80,16 @@ function AboutPage() {
             </p>
           </div>
         </div>
+      </section>
+
+      {/* Company profile film */}
+      <section className="section section-dark">
+        <SectionHeader
+          eyebrow={profileVideo.eyebrow}
+          title={profileVideo.title}
+          text={profileVideo.text}
+        />
+        <ProfileVideo />
       </section>
 
       {/* What we do */}
