@@ -192,6 +192,14 @@ function RegionsPage() {
       on(c, "blur", () => setHover(null));
     });
 
+    // The overview rows are click-only, deliberately.
+    //
+    // They live inside the default pane, and panes are switched with
+    // `display: none`. Previewing a region on hover therefore removed the very
+    // row the pointer was over, which fired `mouseleave`, which restored the
+    // default pane, which put the row back under the pointer — a `mouseenter`
+    // /`mouseleave` loop that strobed the whole panel. The chips above the map
+    // sit outside the panes, so they can still preview on hover; these cannot.
     qsa<HTMLButtonElement>(".ov").forEach((b) => {
       const k = attr(b, "go");
       on(b, "click", () => {
@@ -199,8 +207,6 @@ function RegionsPage() {
         hover = null;
         apply();
       });
-      on(b, "mouseenter", () => setHover(k));
-      on(b, "mouseleave", () => setHover(null));
     });
 
     qsa<HTMLButtonElement>(".pin").forEach((b) =>

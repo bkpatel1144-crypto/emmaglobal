@@ -280,4 +280,29 @@ from under the pointer makes `:hover` flip on and off, which reads as
 flickering. Cards lift with shadow and border; only descendants (icons, arrows)
 transform.
 
+The same rule applies to **hiding**, and it bites harder. On `/regions` the
+overview rows (`.ov`) sat inside the default pane, and panes switch with
+`display: none`. Previewing a region on hover removed the row the pointer was
+on, firing `mouseleave`, which restored the default pane and put the row back
+under the pointer — a loop that strobed the whole panel about 15 times a second.
+Those rows are now click-only. The chips above the map sit outside the panes, so
+they still preview on hover safely.
+
+**Before adding a hover preview, ask whether the preview hides or moves its own
+trigger.** If it does, make the control click-only. `scripts/flicker-check.mjs`
+parks a real pointer on every such control and counts how often the panel
+changes while the pointer is stationary — 0 is correct, anything above 2 is a
+loop:
+
+```bash
+npm run dev                 # in one terminal
+npm run check:flicker       # exits 1 if any control loops
+```
+
+It needs Chrome on port 9222 (`chrome --headless --remote-debugging-port=9222
+--user-data-dir=/tmp/cdp`) and takes an optional URL argument. Synthetic
+`dispatchEvent` cannot catch this class of bug — only a real pointer produces
+the enter/leave pair that drives the loop — which is why the check goes through
+the DevTools protocol rather than jsdom.
+
 # emmaglobal

@@ -11,7 +11,8 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "build:regions-css": "node scripts/build-regions-css.mjs",
-    "seo": "node scripts/generate-seo.mjs"
+    "seo": "node scripts/generate-seo.mjs",
+    "check:flicker": "node scripts/flicker-check.mjs"
   },
   "overrides": {
     "rolldown": "1.2.1"
