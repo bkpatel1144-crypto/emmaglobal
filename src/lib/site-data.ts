@@ -68,8 +68,14 @@ export const contact = {
    */
   phone: "", // TODO: add the office number
   phoneHref: "", // set alongside `phone`, e.g. "+442080001234"
-  /** First entry is the primary address used for form delivery and mailto links. */
-  emails: ["Puwar.R@emma-global.com", "patel.a@emma-global.com"],
+  /**
+   * First entry is the primary address used for form delivery and mailto links.
+   *
+   * Deliberately a single shared inbox rather than named individuals: personal
+   * addresses go stale when people move roles, and publishing them invites
+   * scraping. Route internally from here instead of adding names back.
+   */
+  emails: ["info@emma-global.com"],
   hours: "Mon – Fri: 9:00 AM – 6:00 PM",
   linkedin: "https://www.linkedin.com/company/emma-global",
   twitter: "https://twitter.com/emmaglobal",

@@ -48,7 +48,7 @@ it overrides the Vercel default pinned in `vite.config.ts`.
 | `SMTP_PORT`          | `465` for implicit TLS, `587` for STARTTLS. Defaults to `587`.                                                                                                  |
 | `SMTP_USER`          | SMTP username — usually the full mailbox address.                                                                                                               |
 | `SMTP_PASS`          | SMTP password. For Gmail this is an **App Password**, not the account password.                                                                                 |
-| `CONTACT_TO_EMAIL`   | Where enquiries land. Defaults to both addresses in `src/lib/site-data.ts`.                                                                                     |
+| `CONTACT_TO_EMAIL`   | Where enquiries land. Defaults to `contact.emails` in `src/lib/site-data.ts`. **Set here, it overrides that** — check it after changing the address in code.       |
 | `CONTACT_FROM_EMAIL` | Envelope sender. Must be an address the SMTP account may send as.                                                                                               |
 
 **The form works without any SMTP values.** With `SMTP_HOST`, `SMTP_USER` or
@@ -93,9 +93,15 @@ These are the only items that still need real values from Emma Global:
    when they are available.
 6. **Contact form delivery** — set `SMTP_HOST`, `SMTP_USER` and `SMTP_PASS` in
    Vercel (see above), otherwise the form falls back to the visitor's mail
-   client. Set `CONTACT_TO_EMAIL` to the two client addresses, and prefer a
-   mailbox on the domain over a gmail.com sender so replies and SPF line up.
-7. **Video production copy** — the `detail` line on the new Digital & AI
+   client. Either set `CONTACT_TO_EMAIL` to `info@emma-global.com` or remove it
+   so the value in `site-data.ts` applies — an env var left pointing at an old
+   address silently keeps sending there. Prefer a mailbox on the domain over a
+   gmail.com sender so replies and SPF line up.
+7. **`info@emma-global.com` must exist.** It is now the only published address:
+   every mailto link, the contact form's destination, the Organization
+   structured data and `security.txt` all point at it. Confirm the mailbox is
+   live and monitored before launch — nothing else catches an enquiry now.
+8. **Video production copy** — the `detail` line on the new Digital & AI
    "Video production" item is drafted, not client-supplied. It needs sign-off,
    and the service's `summary`, `deliverables` and `body` still make no mention
    of video production.

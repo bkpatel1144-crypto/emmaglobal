@@ -1,7 +1,7 @@
 # Emma Global — how to report a security issue.
 # Format: https://www.rfc-editor.org/rfc/rfc9116
 
-Contact: mailto:Puwar.R@emma-global.com
+Contact: mailto:info@emma-global.com
 Preferred-Languages: en
 Canonical: https://emma-global.com/.well-known/security.txt
 
