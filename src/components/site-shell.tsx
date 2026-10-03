@@ -120,23 +120,30 @@ export function SiteFooter() {
             Empowering Workforce, Sustainability &amp; Digital Transformation. Integrated solutions
             that help businesses scale efficiently and sustainably across four regional hubs.
           </p>
+          {/* Each icon is omitted when its URL is empty, the same way the phone
+              row is. An unset social link must never render as href="" — that
+              reloads the current page and reads as a broken profile. */}
           <div className="f-social">
-            <a
-              href={contact.linkedin}
-              target="_blank"
-              rel="noreferrer noopener"
-              aria-label="Emma Global on LinkedIn"
-            >
-              <Linkedin aria-hidden="true" />
-            </a>
-            <a
-              href={contact.twitter}
-              target="_blank"
-              rel="noreferrer noopener"
-              aria-label="Emma Global on X"
-            >
-              <Twitter aria-hidden="true" />
-            </a>
+            {contact.linkedin && (
+              <a
+                href={contact.linkedin}
+                target="_blank"
+                rel="noreferrer noopener"
+                aria-label="Emma Global on LinkedIn"
+              >
+                <Linkedin aria-hidden="true" />
+              </a>
+            )}
+            {contact.twitter && (
+              <a
+                href={contact.twitter}
+                target="_blank"
+                rel="noreferrer noopener"
+                aria-label="Emma Global on X"
+              >
+                <Twitter aria-hidden="true" />
+              </a>
+            )}
           </div>
         </div>
         <div className="f-col">
@@ -174,11 +181,13 @@ export function SiteFooter() {
         <div className="f-col">
           <h2>Connect</h2>
           <ul>
-            <li>
-              <a href={contact.linkedin} target="_blank" rel="noreferrer noopener">
-                LinkedIn
-              </a>
-            </li>
+            {contact.linkedin && (
+              <li>
+                <a href={contact.linkedin} target="_blank" rel="noreferrer noopener">
+                  LinkedIn
+                </a>
+              </li>
+            )}
             {contact.emails.map((email) => (
               <li key={email}>
                 <a href={`mailto:${email}`}>{email}</a>

@@ -84,7 +84,10 @@ These are the only items that still need real values from Emma Global:
    client.
 2. **Production domain** — set `VITE_SITE_URL` and `SITE_URL` in Vercel. Nothing is
    hardcoded; the default is `https://emma-global.com`.
-3. **Social profiles** — `contact.linkedin` and `contact.twitter` are best guesses.
+3. **Social profiles** — `contact.linkedin` is the real company page. `contact.twitter`
+   is still an unverified guess; it feeds the footer icon and the Organization
+   `sameAs`, which tells Google the account is Emma Global. Confirm it or set it
+   to `""` — both the icon and the `sameAs` entry drop out when it is empty.
 4. **Legal pages** — `/privacy` and `/terms` are drafts written against what this
    site actually does. They need review by Emma Global's legal adviser, and the
    governing jurisdiction in `terms.tsx` needs to be named.

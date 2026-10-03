@@ -77,7 +77,7 @@ export const contact = {
    */
   emails: ["info@emma-global.com"],
   hours: "Mon – Fri: 9:00 AM – 6:00 PM",
-  linkedin: "https://www.linkedin.com/company/emma-global",
+  linkedin: "https://www.linkedin.com/company/emma-global-solutions",
   twitter: "https://twitter.com/emmaglobal",
 } as const;
 

@@ -127,7 +127,9 @@ export function organisationJsonLd() {
       areaServed: ["GB", "IN", "SG", "AE"],
       availableLanguage: "English",
     })),
-    sameAs: [contact.linkedin, contact.twitter],
+    // `sameAs` is Google's "these profiles are the same entity" claim, so an
+    // unset or wrong URL here is worse than none at all. Empties are dropped.
+    sameAs: [contact.linkedin, contact.twitter].filter(Boolean),
     areaServed: [
       "South Asia",
       "Asia-Pacific",
