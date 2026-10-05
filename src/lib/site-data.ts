@@ -78,7 +78,9 @@ export const contact = {
   emails: ["info@emma-global.com"],
   hours: "Mon – Fri: 9:00 AM – 6:00 PM",
   linkedin: "https://www.linkedin.com/company/emma-global-solutions",
-  twitter: "https://twitter.com/emmaglobal",
+  // x.com rather than twitter.com: the old domain 301-redirects, and `sameAs`
+  // should name the final URL rather than send Google through a hop.
+  twitter: "https://x.com/emmaglobalserv",
 } as const;
 
 /** Primary inbox — used for mailto links and as the contact-form fallback. */
